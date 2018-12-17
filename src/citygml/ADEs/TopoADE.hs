@@ -2,7 +2,6 @@
 
 module CityGML.ADEs.TopoADE where
 
-import           Abstractable
 import           Data.Tree.NTree.TypeDefs
 import           GHC.Generics
 import           Text.XML.HXT.Core
@@ -15,7 +14,6 @@ data TopoRelation = Near String [TopoNode]
 
 data TopoNode = TopoBuilding String
     deriving (Read, Show, Eq, Generic)
-
 
 instance XmlPickler RelationSet where
     xpickle = xpRelSet
@@ -34,15 +32,6 @@ instance XmlPickler TopoNode where
                     xpAttr "xlink:href" xpText
                 )
              ]
-
-instance AbstractLink TopoRelation where
-        absLink (Near i ns) = (i, ("Near", map a ns))
-            where
-            a (TopoBuilding i) = (i, ("Building", ""))
-
-        reiLink (i, ("Near", ns)) = Near i (map r ns)
-            where
-            r (i, ("Building", _)) = TopoBuilding i
 
 xpRelSet :: PU RelationSet
 xpRelSet =  xpElem "topology:relations"  $
