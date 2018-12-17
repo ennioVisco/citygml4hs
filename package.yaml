@@ -26,17 +26,6 @@ dependencies:
 library:
   source-dirs: src
 
-executables:
-  citygml4hs-exe:
-    main:                Main.hs
-    source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - citygml4hs
-
 tests:
   citygml4hs-test:
     main:                Spec.hs
