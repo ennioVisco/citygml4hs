@@ -37,4 +37,4 @@ install:
 
 script:
 # Build the package, its tests, and its docs and run the tests
-- stack --verbose --no-terminal test
+- stack --verbose --haddock --no-haddock-deps --no-terminal test

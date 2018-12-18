@@ -41,9 +41,9 @@ data CityObjectMember =
     |   Tran TransportationObject
     |   Dem  ReliefFeature
 
-    -- |   Grp  CityObjectGroup
-    -- |   Frn  CityFurniture
-    -- |   Luse LandUse
+    --    Grp  CityObjectGroup
+    --    Frn  CityFurniture
+    --    Luse LandUse
     deriving (Read, Show, Eq, Generic)
 
 
@@ -52,5 +52,5 @@ data Site =
         Bld AbstractBuilding
     |   Brg AbstractBridge
 
-    -- |   Tun AbstractTunnel
+    --    Tun AbstractTunnel
     deriving (Read, Show, Eq, Generic)
