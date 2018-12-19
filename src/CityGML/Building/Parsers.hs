@@ -99,10 +99,10 @@ xpBuilding =
             , \ b ->    (   bFeature b
                         -- Building Optional Information
                         ,   bHeight        b
-                        ,   bStAboveGround b
-                        ,   bYearOfConstr  b
                         ,   bRoofType      b
+                        ,   bYearOfConstr  b
                         ,   bFunction      b
+                        ,   bStAboveGround b
                         -- Building Models
                         ,   bLod0FootPrint b
                         ,   bLod0RoofEdge  b

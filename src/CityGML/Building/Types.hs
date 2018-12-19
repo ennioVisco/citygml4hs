@@ -25,10 +25,10 @@ data AbstractBuilding = Building
     {   bFeature       :: Feature
     -- Building Optional Information
     ,   bHeight        :: Maybe Measure
-    ,   bStAboveGround :: Maybe Int
-    ,   bYearOfConstr  :: Maybe String
     ,   bRoofType      :: Maybe String
+    ,   bYearOfConstr  :: Maybe String
     ,   bFunction      :: Maybe String
+    ,   bStAboveGround :: Maybe Int
     -- Building Models
     ,   bLod0FootPrint :: Maybe BldgLod0Model
     ,   bLod0RoofEdge  :: Maybe BldgLod0Model
