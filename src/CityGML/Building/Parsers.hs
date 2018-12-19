@@ -109,8 +109,8 @@ xpBuilding =
                         ,   bLod1Solid     b
                         ,   bLod3Solid     b
                         -- Building External Interfaces
-                        ,   bBoundedBy     b
                         ,   bInstallations b
+                        ,   bBoundedBy     b
                         )
             ) $
     xp12Tuple   xpFeature
@@ -126,8 +126,8 @@ xpBuilding =
                 (xpOption xpBldgLod1)
                 (xpOption xpBldgLod3)
                 -- Building External Interfaces
-                (xpList $ xpElem "bldg:boundedBy" xpBldgBoundary)
                 (xpList $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)
+                (xpList $ xpElem "bldg:boundedBy" xpBldgBoundary)
 
 xpBldgBoundary :: PU BldgBoundary
 xpBldgBoundary

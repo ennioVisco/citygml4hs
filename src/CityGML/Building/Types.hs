@@ -35,8 +35,8 @@ data AbstractBuilding = Building
     ,   bLod1Solid     :: Maybe BldgLod1Model
     ,   bLod3Solid     :: Maybe BldgLod3Model
     -- Building External Interfaces
-    ,   bBoundedBy     :: [BldgBoundary]
     ,   bInstallations :: [BuildingInstallation]
+    ,   bBoundedBy     :: [BldgBoundary]
     }
     deriving (Read, Show, Eq, Generic)
 
