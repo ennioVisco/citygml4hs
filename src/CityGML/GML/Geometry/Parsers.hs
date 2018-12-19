@@ -332,7 +332,7 @@ xpCurve :: PU Curve
 xpCurve
   = xpAlt tag ps
         where
-        tag (LineString _)     = 0
+        tag (LineString     _) = 0
         tag (CompositeCurve _) = 1
         ps  = [ xpElem "gml:LineString" $
                 xpWrap  ( LineString
@@ -350,8 +350,18 @@ xpCurve
 
 xpPoint :: PU Point
 xpPoint
-  = xpElem "gml:pos" $
-    xpWrap  ( Coord
-            , \ (Coord d) -> d
-            )
-    xpText
+  = xpAlt tag ps
+        where
+        tag (Coord _) = 0
+        tag (List  _) = 1
+        ps  = [ xpElem "gml:pos" $
+                xpWrap  ( Coord
+                        , \ (Coord d) -> d
+                        )
+                xpText
+             ,  xpElem "gml:posList" $
+                xpWrap  ( Coord
+                        , \ (Coord d) -> d
+                        )
+                xpText
+             ]

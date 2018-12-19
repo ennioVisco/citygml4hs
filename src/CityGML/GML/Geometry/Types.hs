@@ -129,6 +129,12 @@ data Curve =
 
 -- ..........................:::::::: Point ::::::::........................ --
 
-newtype Point = Coord
-    {   pCoords :: String
-    }   deriving (Read, Show, Eq, Generic)
+data Point =
+        Coord
+        {   pCoords :: String
+        }
+    |   List
+        {
+            pList :: String
+        }
+    deriving (Read, Show, Eq, Generic)
