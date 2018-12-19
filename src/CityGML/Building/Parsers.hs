@@ -60,11 +60,11 @@ xpBldgLod0
         ps = [  xpWrap  ( FootPrint
                         , \ (FootPrint ms) -> ms
                         )
-                (xpElem "bldg:Lod0FootPrint" xpickle)
+                (xpElem "bldg:lod0FootPrint" xpickle)
              ,  xpWrap  ( RoofEdge
                              , \ (RoofEdge ms) -> ms
                              )
-                (xpElem "bldg:Lod0RoofEdge"  xpickle)
+                (xpElem "bldg:lod0RoofEdge"  xpickle)
              ]
 
 
@@ -76,7 +76,7 @@ xpBldgLod1
         ps = [  xpWrap  ( BldgLod1Solid
                         , \ (BldgLod1Solid s) -> s
                         ) $
-                xpElem "bldg:Lod1Solid" xpSolid
+                xpElem "bldg:lod1Solid" xpSolid
              ]
 
 xpBldgLod3 :: PU BldgLod3Model
@@ -87,7 +87,7 @@ xpBldgLod3
         ps = [  xpWrap  ( BldgLod3Multi
                         , \ (BldgLod3Multi s) -> s
                         ) $
-                xpElem "bldg:Lod3MultiSurface" xpMultiSurface
+                xpElem "bldg:lod3MultiSurface" xpMultiSurface
              ]
 
 
@@ -140,7 +140,7 @@ xpBldgBoundary
         ps = [  xpWrap  ( Wall
                         , \ (Wall w) -> w
                         ) $
-                xpElem "bldg:WallSurface" xpWallSurface
+                xpElem "bldg:WallSurface"    xpWallSurface
             ,   xpWrap  ( Closure
                         , \ (Closure w) -> w
                         ) $
@@ -148,11 +148,11 @@ xpBldgBoundary
             ,   xpWrap  ( Roof
                         , \ (Roof w) -> w
                         ) $
-                xpElem "bldg:RoofSurface" xpBuildingSurface
+                xpElem "bldg:RoofSurface"    xpBuildingSurface
             ,   xpWrap  ( Ground
                         , \ (Ground w) -> w
                         ) $
-                xpElem "bldg:GroundSurface" xpBuildingSurface
+                xpElem "bldg:GroundSurface"  xpBuildingSurface
            ]
 
 xpBldgInst :: PU BuildingInstallation
