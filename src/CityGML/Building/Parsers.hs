@@ -116,10 +116,10 @@ xpBuilding =
     xp12Tuple   xpFeature
                 -- Building Optional Information
                 (xpOption xpMeasure)
-                (xpOption $ xpElem "bldg:storeysAboveGround" xpPrim)
-                (xpOption $ xpElem "bldg:yearOfConstruction" xpText)
                 (xpOption $ xpElem "bldg:roofType"           xpText)
+                (xpOption $ xpElem "bldg:yearOfConstruction" xpText)
                 (xpOption $ xpElem "bldg:function"           xpText)
+                (xpOption $ xpElem "bldg:storeysAboveGround" xpPrim)
                 -- Building Models
                 (xpOption xpBldgLod0)
                 (xpOption xpBldgLod0)
