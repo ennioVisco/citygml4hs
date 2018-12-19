@@ -54,7 +54,7 @@ data BldgLod3Model = BldgLod3Multi MultiSurface
 data BldgBoundary =
         Wall    WallSurface
     |   Closure BuildingSurface
-    |   Roof    BuildingSurface
+    |   Roof    RoofSurface
     |   Ground  BuildingSurface
     deriving (Read, Show, Eq, Generic)
 
@@ -62,6 +62,13 @@ data WallSurface = WallSurface
     {   wlFeature   :: Feature
     ,   wlLod3Model :: BldgLod3Model
     ,   wlOpenings  :: [Opening]
+    } deriving (Read, Show, Eq, Generic)
+
+
+data RoofSurface = RoofSurface
+    {   rfFeature   :: Feature
+    ,   rfLod3Model :: BldgLod3Model
+    ,   rfOpenings  :: [Opening]
     } deriving (Read, Show, Eq, Generic)
 
 data Opening =

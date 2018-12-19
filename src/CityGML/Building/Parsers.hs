@@ -39,6 +39,9 @@ instance XmlPickler BuildingInstallation where
 instance XmlPickler WallSurface where
     xpickle = xpWallSurface
 
+instance XmlPickler RoofSurface where
+    xpickle = xpRoofSurface
+
 instance XmlPickler BuildingSurface where
     xpickle = xpBuildingSurface
 
@@ -148,7 +151,7 @@ xpBldgBoundary
             ,   xpWrap  ( Roof
                         , \ (Roof w) -> w
                         ) $
-                xpElem "bldg:RoofSurface"    xpBuildingSurface
+                xpElem "bldg:RoofSurface"    xpRoofSurface
             ,   xpWrap  ( Ground
                         , \ (Ground w) -> w
                         ) $
@@ -168,6 +171,15 @@ xpWallSurface :: PU WallSurface
 xpWallSurface
  =  xpWrap  ( uncurry3 WallSurface
             , \s -> (wlFeature s, wlLod3Model s, wlOpenings s)
+            ) $
+    xpTriple    xpFeature
+                xpBldgLod3
+                (xpList $ xpElem "bldg:opening" xpOpening)
+
+xpRoofSurface :: PU RoofSurface
+xpRoofSurface
+ =  xpWrap  ( uncurry3 RoofSurface
+            , \s -> (rfFeature s, rfLod3Model s, rfOpenings s)
             ) $
     xpTriple    xpFeature
                 xpBldgLod3
