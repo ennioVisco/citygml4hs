@@ -162,7 +162,7 @@ xpBldgInst
     xpWrap  ( BldgInstallation
             , \ (BldgInstallation s) -> s
             ) $
-    xpList xpBldgBoundary
+    xpList $ xpElem "bldg:boundedBy" xpBldgBoundary
 
 xpWallSurface :: PU WallSurface
 xpWallSurface
