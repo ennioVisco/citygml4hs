@@ -15,7 +15,9 @@
 
 module CityGML.GML.Geometry.Parsers where
 
-import           CityGML.GML.Types
+import           CityGML.GML.Feature.Parsers
+import           CityGML.GML.Feature.Types
+import           CityGML.GML.Geometry.Types
 import           Text.XML.HXT.Core
 
 -- ........................:::::::: _Geometry ::::::::...................... --
@@ -249,7 +251,7 @@ xpSurface :: PU Surface
 xpSurface
   = xpAlt tag ps
         where
-        tag (Polygon _ _)           = 0
+        tag (Polygon _ _ _)         = 0
         tag (CompositeSurface _)    = 1
         tag (Surface _)             = 2
         tag (OrientableSurface _ _) = 3
@@ -262,10 +264,11 @@ xpSurface
 xpPolygon :: PU Surface
 xpPolygon
   = xpElem "gml:Polygon" $
-    xpWrap  ( uncurry Polygon
-            , \ p -> (scExterior p, scInterior p)) $
-    xpPair  (xpElem "gml:exterior" xpRing)
-            (xpList $ xpElem "gml:interior" xpRing)
+    xpWrap  ( uncurry3 Polygon
+            , \ p -> (scFeature p, scExterior p, scInterior p)) $
+    xpTriple    xpFeature
+                (xpElem "gml:exterior" xpRing)
+                (xpList $ xpElem "gml:interior" xpRing)
 
 xpCompositeSurface :: PU Surface
 xpCompositeSurface

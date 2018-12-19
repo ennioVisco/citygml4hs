@@ -32,6 +32,8 @@ module CityGML.GML.Geometry.Types where
 
 import           GHC.Generics
 
+import           CityGML.GML.Feature.Types
+
 -- ........................:::::::: _Geometry ::::::::...................... --
 
 data Geometry =
@@ -94,7 +96,8 @@ data Solid =
 
 data Surface =
         Polygon
-        {   scExterior ::  Ring
+        {   scFeature  ::  Feature
+        ,   scExterior ::  Ring
         ,   scInterior :: [Ring]
         }
     |   CompositeSurface [Surface]
