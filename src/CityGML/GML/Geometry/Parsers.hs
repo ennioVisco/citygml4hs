@@ -363,8 +363,8 @@ xpPoint
                         )
                 xpText
              ,  xpElem "gml:posList" $
-                xpWrap  ( Coord
-                        , \ (Coord d) -> d
+                xpWrap  ( List
+                        , \ (List d) -> d
                         )
                 xpText
              ]

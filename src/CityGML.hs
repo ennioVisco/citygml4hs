@@ -1,7 +1,7 @@
 module CityGML
-    ( module CityGML.Parsers,
-      module CityGML.Types
+    ( module Parsers,
+      module Types
     ) where
 
-import           CityGML.Parsers
-import           CityGML.Types
+import           CityGML.Parsers as Parsers
+import           CityGML.Types   as Types
