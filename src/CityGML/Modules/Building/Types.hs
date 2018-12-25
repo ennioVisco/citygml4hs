@@ -28,10 +28,10 @@ data AbstractBuilding = Building
     -- Extra Generic Attributes
     ,   bExtras        :: [GenericAttribute]
     -- Building Optional Information
-    ,   bHeight        :: Maybe Measure
-    ,   bRoofType      :: Maybe String
-    ,   bYearOfConstr  :: Maybe String
     ,   bFunction      :: Maybe String
+    ,   bRoofType      :: Maybe String
+    ,   bHeight        :: Maybe Measure
+    ,   bYearOfConstr  :: Maybe String
     ,   bStAboveGround :: Maybe Int
     -- Building Models
     ,   bLod0FootPrint :: Maybe BldgLod0Model

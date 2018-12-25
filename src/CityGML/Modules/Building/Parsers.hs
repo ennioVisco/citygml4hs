@@ -99,16 +99,16 @@ xpBldgLod3
 xpBuilding :: PU AbstractBuilding
 xpBuilding =
     xpElem "bldg:Building"    $
-    xpWrap  (\(g, e, h,s,y,r,f, l0f,l0r,l1,l3, b,i) ->
-                Building g  e  h s y r f  l0f l0r l1 l3  b i
+    xpWrap  (\(g, e, f,r,h,y,s, l0f,l0r,l1,l3, b,i) ->
+                Building g  e  f r h y s  l0f l0r l1 l3  b i
             , \ b ->    (   bObject        b
                         -- Extra Generic Attributes
                         ,   bExtras        b
                         -- Building Optional Information
-                        ,   bHeight        b
-                        ,   bRoofType      b
-                        ,   bYearOfConstr  b
                         ,   bFunction      b
+                        ,   bRoofType      b
+                        ,   bHeight        b
+                        ,   bYearOfConstr  b
                         ,   bStAboveGround b
                         -- Building Models
                         ,   bLod0FootPrint b
@@ -124,10 +124,10 @@ xpBuilding =
                 -- Extra Generic Attributes
                 (xpList xpGenericAttribute)
                 -- Building Optional Information
-                (xpOption xpMeasure)
-                (xpOption $ xpElem "bldg:roofType"           xpText)
-                (xpOption $ xpElem "bldg:yearOfConstruction" xpText)
                 (xpOption $ xpElem "bldg:function"           xpText)
+                (xpOption $ xpElem "bldg:roofType"           xpText)
+                (xpOption xpMeasure)
+                (xpOption $ xpElem "bldg:yearOfConstruction" xpText)
                 (xpOption $ xpElem "bldg:storeysAboveGround" xpPrim)
                 -- Building Models
                 (xpOption xpBldgLod0)
