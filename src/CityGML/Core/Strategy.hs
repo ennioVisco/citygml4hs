@@ -17,9 +17,9 @@
 
 module CityGML.Core.Strategy
     (   module CityGML.Core.Types
-    ,   CityModel
-    ,   CityObjectMember
-    ,   Site
+    ,   CityModel(..)
+    ,   CityObjectMember(..)
+    ,   Site(..)
     ,   xpCityModel
     ,   xpCityObjectMember
     ,   xpSite
