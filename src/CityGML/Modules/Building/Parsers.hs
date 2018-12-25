@@ -29,6 +29,9 @@ instance XmlPickler BldgLod0Model where
 instance XmlPickler BldgLod1Model where
     xpickle = xpBldgLod1
 
+instance XmlPickler BldgLod2Model where
+    xpickle = xpBldgLod2
+
 instance XmlPickler BldgLod3Model where
     xpickle = xpBldgLod3
 
@@ -84,6 +87,17 @@ xpBldgLod1
                 xpElem "bldg:lod1Solid" xpSolid
              ]
 
+xpBldgLod2 :: PU BldgLod2Model
+xpBldgLod2
+    = xpAlt tag ps
+        where
+        tag (BldgLod2Solid _) = 0
+        ps = [  xpWrap  ( BldgLod2Solid
+                        , \ (BldgLod2Solid s) -> s
+                        ) $
+                xpElem "bldg:lod2Solid" xpSolid
+             ]
+
 xpBldgLod3 :: PU BldgLod3Model
 xpBldgLod3
     = xpAlt tag ps
@@ -99,8 +113,8 @@ xpBldgLod3
 xpBuilding :: PU AbstractBuilding
 xpBuilding =
     xpElem "bldg:Building"    $
-    xpWrap  (\(g, e, f,r,h,y,s, l0f,l0r,l1,l3, b,i) ->
-                Building g  e  f r h y s  l0f l0r l1 l3  b i
+    xpWrap  (\(g, e, f,r,h,y,s, l0f,l0r,l1,l2,l3, b,i) ->
+                Building g  e  f r h y s  l0f l0r l1 l2 l3  b i
             , \ b ->    (   bObject        b
                         -- Extra Generic Attributes
                         ,   bExtras        b
@@ -114,13 +128,14 @@ xpBuilding =
                         ,   bLod0FootPrint b
                         ,   bLod0RoofEdge  b
                         ,   bLod1Solid     b
+                        ,   bLod2Solid     b
                         ,   bLod3Solid     b
                         -- Building External Interfaces
                         ,   bInstallations b
                         ,   bBoundedBy     b
                         )
             ) $
-    xp13Tuple   xpCityObject
+    xp14Tuple   xpCityObject
                 -- Extra Generic Attributes
                 (xpList xpGenericAttribute)
                 -- Building Optional Information
@@ -133,6 +148,7 @@ xpBuilding =
                 (xpOption xpBldgLod0)
                 (xpOption xpBldgLod0)
                 (xpOption xpBldgLod1)
+                (xpOption xpBldgLod2)
                 (xpOption xpBldgLod3)
                 -- Building External Interfaces
                 (xpList $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)

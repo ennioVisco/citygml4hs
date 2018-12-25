@@ -37,6 +37,7 @@ data AbstractBuilding = Building
     ,   bLod0FootPrint :: Maybe BldgLod0Model
     ,   bLod0RoofEdge  :: Maybe BldgLod0Model
     ,   bLod1Solid     :: Maybe BldgLod1Model
+    ,   bLod2Solid     :: Maybe BldgLod2Model
     ,   bLod3Solid     :: Maybe BldgLod3Model
     -- Building External Interfaces
     ,   bInstallations :: [BuildingInstallation]
@@ -49,6 +50,9 @@ data BldgLod0Model = FootPrint MultiSurface
                 deriving (Read, Show, Eq, Generic)
 
 data BldgLod1Model = BldgLod1Solid Solid
+                 deriving (Read, Show, Eq, Generic)
+
+data BldgLod2Model = BldgLod2Solid Solid
                  deriving (Read, Show, Eq, Generic)
 
 
