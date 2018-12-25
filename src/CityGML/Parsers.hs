@@ -33,15 +33,15 @@ import           CityGML.Namespaces
 import           CityGML.Types
 
 -- Import CityGML Modules
-import           CityGML.Bridge.Parsers         as Bridge
-import           CityGML.Building.Parsers       as Building
-import           CityGML.Core.Parsers           as Core
-import           CityGML.Generics.Parsers       as Generics
-import           CityGML.GML.Parsers            as GML
-import           CityGML.Relief.Parsers         as Relief
-import           CityGML.Transportation.Parsers as Transportation
-import           CityGML.Vegetation.Parsers     as Vegetation
-import           CityGML.WaterBody.Parsers      as WaterBody
+import           CityGML.Core.Parsers                   as Core
+import           CityGML.GML.Parsers                    as GML
+import           CityGML.Modules.Bridge.Parsers         as Bridge
+import           CityGML.Modules.Building.Parsers       as Building
+import           CityGML.Modules.Generics.Parsers       as Generics
+import           CityGML.Modules.Relief.Parsers         as Relief
+import           CityGML.Modules.Transportation.Parsers as Transportation
+import           CityGML.Modules.Vegetation.Parsers     as Vegetation
+import           CityGML.Modules.WaterBody.Parsers      as WaterBody
 
 
 

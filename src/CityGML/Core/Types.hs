@@ -17,40 +17,30 @@
 
 module CityGML.Core.Types where
 
-import           CityGML.Bridge.Types         as Bridge
-import           CityGML.Building.Types       as Building
-import           CityGML.Generics.Types       as Generics
-import           CityGML.GML.Types            as GML
-import           CityGML.Relief.Types         as Relief
-import           CityGML.Transportation.Types as Transportation
-import           CityGML.Vegetation.Types     as Vegetation
-import           CityGML.WaterBody.Types      as WaterBody
+import           CityGML.GML.Types
+import           CityGML.XAL.Types
 
 import           GHC.Generics
 
-data CityModel = CityModel
-    {   cFeature :: Feature
-    ,   cMembers :: [CityObjectMember]
-    }   deriving (Read, Show, Eq, Generic)
-
-data CityObjectMember =
-        Site Site
-    |   Veg  VegetationObject
-    |   Gen  GenericCityObject
-    |   Wtr  WaterObject
-    |   Tran TransportationObject
-    |   Dem  ReliefFeature
-
-    --    Grp  CityObjectGroup
-    --    Frn  CityFurniture
-    --    Luse LandUse
+data Address = Address XalAddressDetails
     deriving (Read, Show, Eq, Generic)
 
+data ExternalReference = ExternalReference
+    {   erInformationSystem :: Maybe String
+    ,   erExternalObjRef    :: ExternalObject
+    } deriving (Read, Show, Eq, Generic)
 
+data ExternalObject = ExternalObject
+    {   eoName :: String
+    ,   eoUri  :: Maybe String
+    } deriving (Read, Show, Eq, Generic)
 
-data Site =
-        Bld AbstractBuilding
-    |   Brg AbstractBridge
-
-    --    Tun AbstractTunnel
-    deriving (Read, Show, Eq, Generic)
+data CityObject = CityObject
+    {   oFeature           :: Feature
+    ,   oCreationDate      ::  Maybe String
+    ,   oTerminationDate   ::  Maybe String
+    ,   oExternalReference ::  [ExternalReference]
+    ,   oGeneralizesTo     ::  [CityObject]
+    ,   oRelativeToTerrain ::  Maybe String
+    ,   oRelativeToWater   ::  Maybe String
+    } deriving (Read, Show, Eq, Generic)

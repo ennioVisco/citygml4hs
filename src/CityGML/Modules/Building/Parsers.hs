@@ -1,23 +1,25 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Building.Parsers
+   Module     : CityGML.Modules.Building.Parsers
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
    Parsers (i.e. 'XMLPickler's) related to the Types defined in
-   'CityGML.Building.Types'.
+   'CityGML.Modules.Building.Types'.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.Building.Parsers where
+module CityGML.Modules.Building.Parsers where
 
+import           CityGML.Core.Parsers             (xpCityObject)
 import           CityGML.GML.Parsers
-import           CityGML.Types
+import           CityGML.Modules.Building.Types
+import           CityGML.Modules.Generics.Parsers (xpGenericAttribute)
 import           Text.XML.HXT.Core
 
 
@@ -97,9 +99,11 @@ xpBldgLod3
 xpBuilding :: PU AbstractBuilding
 xpBuilding =
     xpElem "bldg:Building"    $
-    xpWrap  (\(g, h,s,y,r,f, l0f,l0r,l1,l3, b,i) ->
-                Building g  h s y r f  l0f l0r l1 l3  b i
-            , \ b ->    (   bFeature b
+    xpWrap  (\(g, e, h,s,y,r,f, l0f,l0r,l1,l3, b,i) ->
+                Building g  e  h s y r f  l0f l0r l1 l3  b i
+            , \ b ->    (   bObject        b
+                        -- Extra Generic Attributes
+                        ,   bExtras        b
                         -- Building Optional Information
                         ,   bHeight        b
                         ,   bRoofType      b
@@ -116,7 +120,9 @@ xpBuilding =
                         ,   bBoundedBy     b
                         )
             ) $
-    xp12Tuple   xpFeature
+    xp13Tuple   xpCityObject
+                -- Extra Generic Attributes
+                (xpList xpGenericAttribute)
                 -- Building Optional Information
                 (xpOption xpMeasure)
                 (xpOption $ xpElem "bldg:roofType"           xpText)

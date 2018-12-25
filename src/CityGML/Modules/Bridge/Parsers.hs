@@ -1,23 +1,23 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Bridge.Parsers
+   Module     : CityGML.Modules.Bridge.Parsers
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
    Parsers (i.e. 'XMLPickler's) related to the Types defined in
-   'CityGML.Bridge.Types'.
+   'CityGML.Modules.Bridge.Types'.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.Bridge.Parsers where
+module CityGML.Modules.Bridge.Parsers where
 
 import           CityGML.GML.Parsers
-import           CityGML.Types
+import           CityGML.Modules.Bridge.Types
 import           Text.XML.HXT.Core
 
 

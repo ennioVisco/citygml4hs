@@ -1,3 +1,4 @@
+
 -- ------------------------------------------------------------
 
 {- |
@@ -29,12 +30,12 @@ module CityGML.Types
 where
 
 -- Import CityGML Modules
-import           CityGML.Bridge.Types         as Bridge
-import           CityGML.Building.Types       as Building
-import           CityGML.Core.Types           as Core
-import           CityGML.Generics.Types       as Generics
-import           CityGML.GML.Types            as GML
-import           CityGML.Relief.Types         as Relief
-import           CityGML.Transportation.Types as Transportation
-import           CityGML.Vegetation.Types     as Vegetation
-import           CityGML.WaterBody.Types      as WaterBody
+import           CityGML.Core.Strategy                as Core
+import           CityGML.GML.Types                    as GML
+import           CityGML.Modules.Bridge.Types         as Bridge
+import           CityGML.Modules.Building.Types       as Building
+import           CityGML.Modules.Generics.Types       as Generics
+import           CityGML.Modules.Relief.Types         as Relief
+import           CityGML.Modules.Transportation.Types as Transportation
+import           CityGML.Modules.Vegetation.Types     as Vegetation
+import           CityGML.Modules.WaterBody.Types      as WaterBody

@@ -17,102 +17,67 @@
 
 module CityGML.Core.Parsers where
 
-import           CityGML.Core.Types
-import           CityGML.Namespaces
-
-import           CityGML.Bridge.Parsers         as Bridge
-import           CityGML.Building.Parsers       as Building
-import           CityGML.Generics.Parsers       as Generics
-import           CityGML.GML.Parsers            as GML
-import           CityGML.Relief.Parsers         as Relief
-import           CityGML.Transportation.Parsers as Transportation
-import           CityGML.Vegetation.Parsers     as Vegetation
-import           CityGML.WaterBody.Parsers      as WaterBody
-
 import           Text.XML.HXT.Core
 
-instance XmlPickler CityModel where
-    xpickle = xpCityModel
+import           CityGML.Core.Types
+import           CityGML.GML.Parsers
+import           CityGML.XAL.Parsers
+
+instance XmlPickler CityObject where
+    xpickle = xpCityObject
+
+instance XmlPickler ExternalReference where
+    xpickle = xpExtRef
+
+instance XmlPickler ExternalObject where
+    xpickle = xpExtObj
+
+instance XmlPickler Address where
+    xpickle = xpAddress
 
 
+xpCityObject :: PU CityObject
+xpCityObject
+  = xpWrap  ( \ (f, cd, td, e, g, rt, rw) ->
+              CityObject f cd td e g rt rw
+            , \ o ->    (   oFeature            o
+                        ,   oCreationDate       o
+                        ,   oTerminationDate    o
+                        ,   oExternalReference  o
+                        ,   oGeneralizesTo      o
+                        ,   oRelativeToTerrain  o
+                        ,   oRelativeToWater    o
+                        )
+            ) $
+    xp7Tuple    xpFeature
+                (xpOption $ xpElem "core:creationDate"            xpText)
+                (xpOption $ xpElem "core:terminationDate"         xpText)
+                (xpList   $ xpElem "core:externalReference"     xpExtRef)
+                (xpList   $ xpElem "core:generalizesTo"     xpCityObject)
+                (xpOption $ xpElem "core:relativeToTerrain"       xpText)
+                (xpOption $ xpElem "core:relativeToWater"         xpText)
 
-xpCityModel :: PU CityModel
-xpCityModel
-    = xpElem "CityModel" $
-      xpNamespaces namespaces $
-      xpWrap    ( uncurry CityModel
-                , \ c -> (cFeature c, cMembers c)
-                ) $
-      xpPair    xpFeature
-                (xpList xpCityObjectMember)
+xpExtRef :: PU ExternalReference
+xpExtRef
+  = xpWrap  ( uncurry ExternalReference
+            , \ r -> (erInformationSystem r, erExternalObjRef r)
+            ) $
+    xpPair  (xpOption $ xpElem "core:informationSystem" xpText)
+            (xpElem            "core:externalObject"  xpExtObj)
 
--- | Extra Special Picklers
+xpExtObj :: PU ExternalObject
+xpExtObj
+  = xpWrap  ( uncurry ExternalObject
+            , \ o -> (eoName o, eoUri o)
+            ) $
+    xpPair  (xpElem            "core:name" xpText)
+            (xpOption $ xpElem "core:uri"  xpText)
 
-xpNamespaces :: [(String, String)] -> PU a -> PU a
-xpNamespaces xs v = foldr (uncurry xpAddFixedAttr) v xs
-
-
-instance XmlPickler CityObjectMember where
-    xpickle = xpCityObjectMember
-
-instance XmlPickler Site where
-    xpickle = xpSite
-
-xpCityObjectMember :: PU CityObjectMember
-xpCityObjectMember
-  = xpElem "cityObjectMember" $
-    xpAlt tag ps
-        where
-        tag (Site _) = 0
-        tag (Veg  _) = 1
-        tag (Gen  _) = 2
-        tag (Wtr  _) = 3
-        tag (Tran _) = 4
-        tag (Dem  _) = 5
-        ps =    [   xpWrap  ( Site
-                            , \ (Site s) -> s
-                            )
-                    xpSite
-
-                ,   xpWrap  ( Veg
-                            , \ (Veg v) -> v
-                            )
-                    xpVegetation
-
-                ,   xpWrap  ( Gen
-                            , \ (Gen g) -> g
-                            )
-                    xpGenerics
-
-                ,   xpWrap  ( Wtr
-                            , \ (Wtr w) -> w
-                            )
-                    xpWaterBody
-
-                ,   xpWrap  ( Tran
-                            , \ (Tran t) -> t
-                            )
-                    xpTransportation
-
-                ,   xpWrap  ( Dem
-                            , \ (Dem r) -> r
-                            )
-                    xpReliefFeature
-                ]
-
-xpSite :: PU Site
-xpSite
-  = xpAlt tag ps
-      where
-      tag (Bld _) = 0
-      tag (Brg _) = 1
-      ps =    [  xpWrap  ( Bld
-                          , \ (Bld b) -> b
-                          )
-                  xpBuilding
-
-              ,   xpWrap  ( Brg
-                          , \ (Brg b) -> b
-                          )
-                  xpBridge
-              ]
+xpAddress :: PU Address
+xpAddress
+  = xpElem "core:Address"    $
+    xpElem "core:xalAddress" $
+    xpWrap  ( Address
+            , \ (Address a) -> a
+            )
+    xpXalAddress

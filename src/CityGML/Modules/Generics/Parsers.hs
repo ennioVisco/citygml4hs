@@ -1,28 +1,34 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Generics.Parsers
+   Module     : CityGML.Modules.Generics.Parsers
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
    Parsers (i.e. 'XMLPickler's) related to the Types defined in
-   'CityGML.Generics.Types'.
+   'CityGML.Modules.Generics.Types'.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.Generics.Parsers where
+module CityGML.Modules.Generics.Parsers where
 
 import           CityGML.GML.Parsers
-import           CityGML.Types
+import           CityGML.Modules.Generics.Types
 import           Text.XML.HXT.Core
 
 
 instance XmlPickler GenLod1Model where
     xpickle = xpGenLod1Model
+
+instance XmlPickler GenericCityObject where
+    xpickle = xpGenerics
+
+instance XmlPickler GenericAttribute where
+    xpickle = xpGenericAttribute
 
 xpGenLod1Model :: PU GenLod1Model
 xpGenLod1Model
@@ -35,9 +41,6 @@ xpGenLod1Model
                 xpElem "gen:lod1Geometry" xpMultiSurface
              ]
 
-instance XmlPickler GenericCityObject where
-    xpickle = xpGenerics
-
 xpGenerics :: PU GenericCityObject
 xpGenerics =
     xpElem "gen:GenericCityObject"    $
@@ -46,3 +49,12 @@ xpGenerics =
             ) $
     xpPair      xpFeature
                 xpGenLod1Model
+
+xpGenericAttribute :: PU GenericAttribute
+xpGenericAttribute
+  = xpElem "gen:stringAttribute" $
+    xpWrap  ( uncurry StringAttribute
+            , \ a -> (gaName a, gaValue a)
+            ) $
+    xpPair  (xpAttr "name"      xpText)
+            (xpElem "gen:value" xpText)

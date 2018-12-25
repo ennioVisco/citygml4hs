@@ -3,29 +3,29 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.WaterBody.Types
+   Module     : CityGML.Modules.Vegetation.Types
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
-   Types related to the WaterBody module of the Thematic model of CityGML.
+   Types related to the Vegetation module of the Thematic model of CityGML.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.WaterBody.Types where
+module CityGML.Modules.Vegetation.Types where
 
 import           CityGML.GML.Types
 
 import           GHC.Generics
 
-data WaterObject = WaterBody
-    {   wtrFeature   :: Feature
-    ,   wtrLod1Model :: Maybe WtrLod1Model
+data VegetationObject = PlantCover
+    {   vegFeature   :: Feature
+    ,   vegLod1Model :: Maybe VegLod1Model
     }   deriving (Read, Show, Eq, Generic)
 
 
-data WtrLod1Model = WtrLod1MultiSurf MultiSurface
+data VegLod1Model = VegLod1MultiSurf MultiSurface
                  deriving (Read, Show, Eq, Generic)

@@ -1,23 +1,23 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Relief.Parsers
+   Module     : CityGML.Modules.Relief.Parsers
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
    Parsers (i.e. 'XMLPickler's) related to the Types defined in
-   'CityGML.Relief.Types'.
+   'CityGML.Modules.Relief.Types'.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.Relief.Parsers where
+module CityGML.Modules.Relief.Parsers where
 
 import           CityGML.GML.Parsers
-import           CityGML.Types
+import           CityGML.Modules.Relief.Types
 import           Text.XML.HXT.Core
 
 

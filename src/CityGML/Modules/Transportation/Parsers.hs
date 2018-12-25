@@ -1,23 +1,23 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Building.Parsers
+   Module     : CityGML.Modules.Transportation.Parsers
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
    Parsers (i.e. 'XMLPickler's) related to the Types defined in
-   'CityGML.Building.Types'.
+   'CityGML.Modules.Transportation.Types'.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.Transportation.Parsers where
+module CityGML.Modules.Transportation.Parsers where
 
 import           CityGML.GML.Parsers
-import           CityGML.Types
+import           CityGML.Modules.Transportation.Types
 import           Text.XML.HXT.Core
 
 

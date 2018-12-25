@@ -3,7 +3,7 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Relief.Types
+   Module     : CityGML.Modules.Relief.Types
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
@@ -15,7 +15,7 @@
 
 -- ------------------------------------------------------------
 
-module CityGML.Relief.Types where
+module CityGML.Modules.Relief.Types where
 
 import           CityGML.GML.Types
 

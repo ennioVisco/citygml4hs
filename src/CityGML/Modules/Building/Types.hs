@@ -3,7 +3,7 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Building.Types
+   Module     : CityGML.Modules.Building.Types
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
@@ -15,14 +15,18 @@
 
 -- ------------------------------------------------------------
 
-module CityGML.Building.Types where
+module CityGML.Modules.Building.Types where
 
+import           CityGML.Core.Types             (CityObject)
 import           CityGML.GML.Types
+import           CityGML.Modules.Generics.Types (GenericAttribute)
 
 import           GHC.Generics
 
 data AbstractBuilding = Building
-    {   bFeature       :: Feature
+    {   bObject        :: CityObject
+    -- Extra Generic Attributes
+    ,   bExtras        :: [GenericAttribute]
     -- Building Optional Information
     ,   bHeight        :: Maybe Measure
     ,   bRoofType      :: Maybe String

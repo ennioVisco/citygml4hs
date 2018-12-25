@@ -3,29 +3,29 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.Generics.Types
+   Module     : CityGML.Modules.Bridge.Types
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
-   Types related to the Generics module of the Thematic model of CityGML.
+   Types related to the Bridge module of the Thematic model of CityGML.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.Generics.Types where
+module CityGML.Modules.Bridge.Types where
 
 import           CityGML.GML.Types
 
 import           GHC.Generics
 
-data GenericCityObject = GenericCityObject
-    {   genFeature   :: Feature
-    ,   genLod1Model :: GenLod1Model
+data AbstractBridge = Bridge
+    {   brgFeature   :: Feature
+    ,   brgLod1Model :: Maybe BrgLod1Model
     }   deriving (Read, Show, Eq, Generic)
 
 
-data GenLod1Model = GenLod1Geometry MultiSurface
+data BrgLod1Model = BrgLod1MultiSurf MultiSurface
                  deriving (Read, Show, Eq, Generic)

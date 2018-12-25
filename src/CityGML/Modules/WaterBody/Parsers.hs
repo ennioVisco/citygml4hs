@@ -1,23 +1,23 @@
 -- ------------------------------------------------------------
 
 {- |
-   Module     : CityGML.WaterBody.Parsers
+   Module     : CityGML.Modules.WaterBody.Parsers
 
    Maintainer : Ennio Visconti (ennio.visconti@mail.polimi.it)
    Stability  : stable
    Portability: portable
 
    Parsers (i.e. 'XMLPickler's) related to the Types defined in
-   'CityGML.WaterBody.Types'.
+   'CityGML.Modules.WaterBody.Types'.
 
 -}
 
 -- ------------------------------------------------------------
 
-module CityGML.WaterBody.Parsers where
+module CityGML.Modules.WaterBody.Parsers where
 
 import           CityGML.GML.Parsers
-import           CityGML.Types
+import           CityGML.Modules.WaterBody.Types
 import           Text.XML.HXT.Core
 
 
