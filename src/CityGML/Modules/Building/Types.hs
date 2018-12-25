@@ -27,23 +27,32 @@ data AbstractBuilding = Building
     {   bObject        :: CityObject
     -- Extra Generic Attributes
     ,   bExtras        :: [GenericAttribute]
-    -- Building Optional Information
-    ,   bFunction      :: Maybe String
-    ,   bRoofType      :: Maybe String
-    ,   bHeight        :: Maybe Measure
-    ,   bYearOfConstr  :: Maybe String
-    ,   bStAboveGround :: Maybe Int
-    -- Building Models
-    ,   bLod0FootPrint :: Maybe BldgLod0Model
-    ,   bLod0RoofEdge  :: Maybe BldgLod0Model
-    ,   bLod1Solid     :: Maybe BldgLod1Model
-    ,   bLod2Solid     :: Maybe BldgLod2Model
-    ,   bLod3Solid     :: Maybe BldgLod3Model
+
+    ,   bInfo          :: BuildingInfo
+    ,   bModels        :: BuildingModels
     -- Building External Interfaces
     ,   bInstallations :: [BuildingInstallation]
     ,   bBoundedBy     :: [BldgBoundary]
     }
     deriving (Read, Show, Eq, Generic)
+
+-- Building Optional Information
+data BuildingInfo = BuildingInfo
+    {   bFunction      :: Maybe String
+    ,   bRoofType      :: Maybe String
+    ,   bHeight        :: Maybe Measure
+    ,   bYearOfConstr  :: Maybe String
+    ,   bStAboveGround :: Maybe Int
+    } deriving (Read, Show, Eq, Generic)
+
+-- Building Models
+data BuildingModels = BuildingModels
+    {   bLod0FootPrint :: Maybe BldgLod0Model
+    ,   bLod0RoofEdge  :: Maybe BldgLod0Model
+    ,   bLod1Solid     :: Maybe BldgLod1Model
+    ,   bLod2Solid     :: Maybe BldgLod2Model
+    ,   bLod3Solid     :: Maybe BldgLod3Model
+    } deriving (Read, Show, Eq, Generic)
 
 data BldgLod0Model = FootPrint MultiSurface
                | RoofEdge MultiSurface

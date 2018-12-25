@@ -23,6 +23,9 @@ import           CityGML.Modules.Generics.Parsers (xpGenericAttribute)
 import           Text.XML.HXT.Core
 
 
+instance XmlPickler BuildingModels where
+    xpickle = xpBldgModels
+
 instance XmlPickler BldgLod0Model where
     xpickle = xpBldgLod0
 
@@ -34,6 +37,9 @@ instance XmlPickler BldgLod2Model where
 
 instance XmlPickler BldgLod3Model where
     xpickle = xpBldgLod3
+
+instance XmlPickler BuildingInfo where
+    xpickle = xpBldgInfo
 
 instance XmlPickler AbstractBuilding where
     xpickle = xpBuilding
@@ -113,46 +119,64 @@ xpBldgLod3
 xpBuilding :: PU AbstractBuilding
 xpBuilding =
     xpElem "bldg:Building"    $
-    xpWrap  (\(g, e, f,r,h,y,s, l0f,l0r,l1,l2,l3, b,i) ->
-                Building g  e  f r h y s  l0f l0r l1 l2 l3  b i
+    xpWrap  (\(g, e, bi, bm, b,i) ->
+                Building g e bi bm b i
             , \ b ->    (   bObject        b
                         -- Extra Generic Attributes
                         ,   bExtras        b
                         -- Building Optional Information
-                        ,   bFunction      b
-                        ,   bRoofType      b
-                        ,   bHeight        b
-                        ,   bYearOfConstr  b
-                        ,   bStAboveGround b
+                        ,   bInfo          b
                         -- Building Models
-                        ,   bLod0FootPrint b
-                        ,   bLod0RoofEdge  b
-                        ,   bLod1Solid     b
-                        ,   bLod2Solid     b
-                        ,   bLod3Solid     b
+                        ,   bModels        b
                         -- Building External Interfaces
                         ,   bInstallations b
                         ,   bBoundedBy     b
                         )
             ) $
-    xp14Tuple   xpCityObject
+    xp6Tuple   xpCityObject
                 -- Extra Generic Attributes
                 (xpList xpGenericAttribute)
                 -- Building Optional Information
-                (xpOption $ xpElem "bldg:function"           xpText)
+                xpBldgInfo
+                -- Building Models
+                xpBldgModels
+                -- Building External Interfaces
+                (xpList $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)
+                (xpList $ xpElem "bldg:boundedBy" xpBldgBoundary)
+
+xpBldgInfo :: PU BuildingInfo
+xpBldgInfo
+  = xpWrap  (\(f,r,h,y,s) ->
+            BuildingInfo f r h y s
+        , \ b ->    (   bFunction      b
+                    ,   bRoofType      b
+                    ,   bHeight        b
+                    ,   bYearOfConstr  b
+                    ,   bStAboveGround b
+                    )
+        ) $
+    xp5Tuple    (xpOption $ xpElem "bldg:function"           xpText)
                 (xpOption $ xpElem "bldg:roofType"           xpText)
-                (xpOption xpMeasure)
+                (xpOption                                 xpMeasure)
                 (xpOption $ xpElem "bldg:yearOfConstruction" xpText)
                 (xpOption $ xpElem "bldg:storeysAboveGround" xpPrim)
-                -- Building Models
-                (xpOption xpBldgLod0)
+
+xpBldgModels :: PU BuildingModels
+xpBldgModels
+  = xpWrap  (\(l0f,l0r,l1,l2,l3) ->
+            BuildingModels l0f l0r l1 l2 l3
+        , \ b ->    (   bLod0FootPrint b
+                    ,   bLod0RoofEdge  b
+                    ,   bLod1Solid     b
+                    ,   bLod2Solid     b
+                    ,   bLod3Solid     b
+                    )
+        ) $
+    xp5Tuple    (xpOption xpBldgLod0)
                 (xpOption xpBldgLod0)
                 (xpOption xpBldgLod1)
                 (xpOption xpBldgLod2)
                 (xpOption xpBldgLod3)
-                -- Building External Interfaces
-                (xpList $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)
-                (xpList $ xpElem "bldg:boundedBy" xpBldgBoundary)
 
 xpBldgBoundary :: PU BldgBoundary
 xpBldgBoundary
