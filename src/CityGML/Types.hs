@@ -32,6 +32,8 @@ where
 -- Import CityGML Modules
 import           CityGML.Core.Strategy                as Core
 import           CityGML.GML.Types                    as GML
+import           CityGML.XLink.Types                  as XLink
+
 import           CityGML.Modules.Bridge.Types         as Bridge
 import           CityGML.Modules.Building.Types       as Building
 import           CityGML.Modules.Generics.Types       as Generics

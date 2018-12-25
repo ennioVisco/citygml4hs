@@ -18,6 +18,7 @@ module CityGML.GML.Geometry.Parsers where
 import           CityGML.GML.Feature.Parsers
 import           CityGML.GML.Feature.Types
 import           CityGML.GML.Geometry.Types
+import           CityGML.XLink.Parsers
 import           Text.XML.HXT.Core
 
 -- ........................:::::::: _Geometry ::::::::...................... --
@@ -251,15 +252,24 @@ xpSurface :: PU Surface
 xpSurface
   = xpAlt tag ps
         where
-        tag (Polygon _ _ _)         = 0
-        tag (CompositeSurface _)    = 1
-        tag (Surface _)             = 2
+        tag (Polygon         _ _ _) = 0
+        tag (CompositeSurface    _) = 1
+        tag (Surface             _) = 2
         tag (OrientableSurface _ _) = 3
+        tag (SuLink              _) = 4
         ps  = [ xpPolygon
               , xpCompositeSurface
               , xpSingleSurface
               , xpOrientableSurface
+              , xpSuXLink
               ]
+
+xpSuXLink :: PU Surface
+xpSuXLink
+  = xpWrap  ( SuLink
+            , \ (SuLink l) -> l
+            )
+    xpXLink
 
 xpPolygon :: PU Surface
 xpPolygon

@@ -35,6 +35,8 @@ import           CityGML.Types
 -- Import CityGML Modules
 import           CityGML.Core.Strategy                  as Core
 import           CityGML.GML.Parsers                    as GML
+import           CityGML.XLink.Parsers                  as XLink
+
 import           CityGML.Modules.Bridge.Parsers         as Bridge
 import           CityGML.Modules.Building.Parsers       as Building
 import           CityGML.Modules.Generics.Parsers       as Generics

@@ -33,6 +33,7 @@ module CityGML.GML.Geometry.Types where
 import           GHC.Generics
 
 import           CityGML.GML.Feature.Types
+import           CityGML.XLink.Types
 
 -- ........................:::::::: _Geometry ::::::::...................... --
 
@@ -106,6 +107,7 @@ data Surface =
         {   sOrientation :: String
         ,   baseSurface  :: Surface
         }
+    | SuLink XLink
     deriving (Read, Show, Eq, Generic)
 
 data SurfacePatch = T Triangle | R Rectangle
