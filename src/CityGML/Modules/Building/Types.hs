@@ -17,9 +17,9 @@
 
 module CityGML.Modules.Building.Types where
 
-import           CityGML.Core.Types             (CityObject)
+import           CityGML.Core.Types
 import           CityGML.GML.Types
-import           CityGML.Modules.Generics.Types (GenericAttribute)
+import           CityGML.Modules.Generics.Types
 
 import           GHC.Generics
 
@@ -48,6 +48,7 @@ data BuildingInfo = BuildingInfo
     ,   bHeight        :: Maybe Measure
     ,   bYearOfConstr  :: Maybe String
     ,   bStAboveGround :: Maybe Int
+    ,   bAddress       :: Maybe Address
     } deriving (Read, Show, Eq, Generic)
 
 -- Building Models

@@ -16,10 +16,10 @@
 
 module CityGML.Modules.Building.Parsers where
 
-import           CityGML.Core.Parsers             (xpCityObject)
+import           CityGML.Core.Parsers
 import           CityGML.GML.Parsers
 import           CityGML.Modules.Building.Types
-import           CityGML.Modules.Generics.Parsers (xpGenericAttribute)
+import           CityGML.Modules.Generics.Parsers
 import           Text.XML.HXT.Core
 
 
@@ -194,20 +194,22 @@ xpBldgInt
 
 xpBldgInfo :: PU BuildingInfo
 xpBldgInfo
-  = xpWrap  (\(f,r,h,y,s) ->
-            BuildingInfo f r h y s
+  = xpWrap  (\(f,r,h,y,s,a) ->
+            BuildingInfo f r h y s a
         , \ b ->    (   bFunction      b
                     ,   bRoofType      b
                     ,   bHeight        b
                     ,   bYearOfConstr  b
                     ,   bStAboveGround b
+                    ,   bAddress       b
                     )
         ) $
-    xp5Tuple    (xpOption $ xpElem "bldg:function"           xpText)
+    xp6Tuple    (xpOption $ xpElem "bldg:function"           xpText)
                 (xpOption $ xpElem "bldg:roofType"           xpText)
                 (xpOption                                 xpMeasure)
                 (xpOption $ xpElem "bldg:yearOfConstruction" xpText)
                 (xpOption $ xpElem "bldg:storeysAboveGround" xpPrim)
+                (xpOption $ xpElem "bldg:address"         xpAddress)
 
 xpBldgModels :: PU BuildingModels
 xpBldgModels
