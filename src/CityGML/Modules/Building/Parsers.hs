@@ -258,18 +258,18 @@ xpBldgInst
 xpWallSurface :: PU WallSurface
 xpWallSurface
  =  xpWrap  ( uncurry3 WallSurface
-            , \s -> (wlFeature s, wlLod3Model s, wlOpenings s)
+            , \s -> (wlObject s, wlLod3Model s, wlOpenings s)
             ) $
-    xpTriple    xpFeature
+    xpTriple    xpCityObject
                 xpBldgLod3
                 (xpList $ xpElem "bldg:opening" xpOpening)
 
 xpRoofSurface :: PU RoofSurface
 xpRoofSurface
  =  xpWrap  ( uncurry3 RoofSurface
-            , \s -> (rfFeature s, rfLod3Model s, rfOpenings s)
+            , \s -> (rfObject s, rfLod3Model s, rfOpenings s)
             ) $
-    xpTriple    xpFeature
+    xpTriple    xpCityObject
                 xpBldgLod3
                 (xpList $ xpElem "bldg:opening" xpOpening)
 
@@ -281,15 +281,15 @@ xpOpening
        tag (Window _ _) = 1
        ps = [   xpElem  "bldg:Door" $
                 xpWrap  ( uncurry Door
-                        , \d -> (dFeature d, dLod3Model d)
+                        , \d -> (dObject d, dLod3Model d)
                         ) $
-                xpPair  xpFeature
+                xpPair  xpCityObject
                         xpBldgLod3
            ,    xpElem  "bldg:Window" $
                 xpWrap  ( uncurry Window
-                        , \w -> (wFeature w, wLod3Model w)
+                        , \w -> (wObject w, wLod3Model w)
                         ) $
-                xpPair  xpFeature
+                xpPair  xpCityObject
                         xpBldgLod3
           ]
 
@@ -297,8 +297,8 @@ xpOpening
 xpBuildingSurface :: PU BuildingSurface
 xpBuildingSurface
  =  xpWrap  ( uncurry BuildingSurface
-            , \s -> (bsFeature s, bsLod3Model s)) $
-    xpPair  xpFeature
+            , \s -> (bsObject s, bsLod3Model s)) $
+    xpPair  xpCityObject
             xpBldgLod3
 
 xpMeasure :: PU Measure

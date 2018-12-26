@@ -87,30 +87,30 @@ data BldgBoundary =
     deriving (Read, Show, Eq, Generic)
 
 data WallSurface = WallSurface
-    {   wlFeature   :: Feature
+    {   wlObject    :: CityObject
     ,   wlLod3Model :: BldgLod3Model
     ,   wlOpenings  :: [Opening]
     } deriving (Read, Show, Eq, Generic)
 
 
 data RoofSurface = RoofSurface
-    {   rfFeature   :: Feature
+    {   rfObject    :: CityObject
     ,   rfLod3Model :: BldgLod3Model
     ,   rfOpenings  :: [Opening]
     } deriving (Read, Show, Eq, Generic)
 
 data Opening =
         Door
-        {   dFeature   :: Feature
+        {   dObject    :: CityObject
         ,   dLod3Model :: BldgLod3Model
         }
     |   Window
-        {   wFeature   :: Feature
+        {   wObject    :: CityObject
         ,   wLod3Model :: BldgLod3Model
         } deriving (Read, Show, Eq, Generic)
 
 data BuildingSurface = BuildingSurface
-    {   bsFeature   :: Feature
+    {   bsObject    :: CityObject
     ,   bsLod3Model :: BldgLod3Model
     } deriving (Read, Show, Eq, Generic)
 
