@@ -365,16 +365,18 @@ xpPoint :: PU Point
 xpPoint
   = xpAlt tag ps
         where
-        tag (Coord _) = 0
-        tag (List  _) = 1
+        tag (Coord _ _) = 0
+        tag (List  _ _) = 1
         ps  = [ xpElem "gml:pos" $
-                xpWrap  ( Coord
-                        , \ (Coord d) -> d
-                        )
-                xpText
+                xpWrap  ( uncurry Coord
+                        , \ p -> (pCoords p, pDimensions p)
+                        ) $
+                xpPair  xpText
+                        (xpOption $ xpAttr "srsDimension" xpPrim)
              ,  xpElem "gml:posList" $
-                xpWrap  ( List
-                        , \ (List d) -> d
-                        )
-                xpText
+                xpWrap  ( uncurry List
+                        , \ p -> (pList p, plDimensions p)
+                        ) $
+                xpPair  xpText
+                        (xpOption $ xpAttr "srsDimension" xpPrim)
              ]

@@ -136,10 +136,11 @@ data Curve =
 
 data Point =
         Coord
-        {   pCoords :: String
+        {   pCoords     :: String
+        ,   pDimensions :: Maybe Int
         }
     |   List
-        {
-            pList :: String
+        {   pList        :: String
+        ,   plDimensions :: Maybe Int
         }
     deriving (Read, Show, Eq, Generic)
