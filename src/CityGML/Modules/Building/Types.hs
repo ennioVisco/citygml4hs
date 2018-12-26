@@ -30,11 +30,16 @@ data AbstractBuilding = Building
 
     ,   bInfo          :: BuildingInfo
     ,   bModels        :: BuildingModels
+    ,   bIntersection  :: BuildingIntersections
     -- Building External Interfaces
     ,   bInstallations :: [BuildingInstallation]
     ,   bBoundedBy     :: [BldgBoundary]
-    }
-    deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic)
+
+data BuildingIntersections = BuildingIntersections
+    {   bLod1TerrainInt :: Maybe BldgLod1Int
+    ,   bLod2TerrainInt :: Maybe BldgLod2Int
+    } deriving (Read, Show, Eq, Generic)
 
 -- Building Optional Information
 data BuildingInfo = BuildingInfo
@@ -58,14 +63,20 @@ data BldgLod0Model = FootPrint MultiSurface
                | RoofEdge MultiSurface
                 deriving (Read, Show, Eq, Generic)
 
-data BldgLod1Model = BldgLod1Solid Solid
+newtype BldgLod1Int = BldgLod1Int MultiCurve
                  deriving (Read, Show, Eq, Generic)
 
-data BldgLod2Model = BldgLod2Solid Solid
+newtype BldgLod2Int = BldgLod2Int MultiCurve
+                 deriving (Read, Show, Eq, Generic)
+
+newtype BldgLod1Model = BldgLod1Solid Solid
+                 deriving (Read, Show, Eq, Generic)
+
+newtype BldgLod2Model = BldgLod2Solid Solid
                  deriving (Read, Show, Eq, Generic)
 
 
-data BldgLod3Model = BldgLod3Multi MultiSurface
+newtype BldgLod3Model = BldgLod3Multi MultiSurface
                  deriving (Read, Show, Eq, Generic)
 
 data BldgBoundary =

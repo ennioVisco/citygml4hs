@@ -26,6 +26,12 @@ import           Text.XML.HXT.Core
 instance XmlPickler BuildingModels where
     xpickle = xpBldgModels
 
+instance XmlPickler BldgLod1Int where
+    xpickle = xpBldgLod1Int
+
+instance XmlPickler BldgLod2Int where
+    xpickle = xpBldgLod2Int
+
 instance XmlPickler BldgLod0Model where
     xpickle = xpBldgLod0
 
@@ -64,6 +70,28 @@ instance XmlPickler BldgBoundary where
 
 instance XmlPickler Measure where
     xpickle = xpMeasure
+
+xpBldgLod1Int :: PU BldgLod1Int
+xpBldgLod1Int
+    = xpAlt tag ps
+        where
+        tag (BldgLod1Int _) = 0
+        ps = [  xpWrap  ( BldgLod1Int
+                        , \ (BldgLod1Int s) -> s
+                        ) $
+                xpElem "bldg:lod1TerrainIntersection" xpMultiCurve
+             ]
+
+xpBldgLod2Int :: PU BldgLod2Int
+xpBldgLod2Int
+    = xpAlt tag ps
+        where
+        tag (BldgLod2Int _) = 0
+        ps = [  xpWrap  ( BldgLod2Int
+                        , \ (BldgLod2Int s) -> s
+                        ) $
+                xpElem "bldg:lod2TerrainIntersection" xpMultiCurve
+             ]
 
 xpBldgLod0 :: PU BldgLod0Model
 xpBldgLod0
@@ -119,8 +147,8 @@ xpBldgLod3
 xpBuilding :: PU AbstractBuilding
 xpBuilding =
     xpElem "bldg:Building"    $
-    xpWrap  (\(g, e, bi, bm, b,i) ->
-                Building g e bi bm b i
+    xpWrap  (\(g, e, bi, bm, bt, b,i) ->
+                Building g e bi bm bt b i
             , \ b ->    (   bObject        b
                         -- Extra Generic Attributes
                         ,   bExtras        b
@@ -128,21 +156,35 @@ xpBuilding =
                         ,   bInfo          b
                         -- Building Models
                         ,   bModels        b
+                        -- Building Intersections
+                        ,   bIntersection  b
                         -- Building External Interfaces
                         ,   bInstallations b
                         ,   bBoundedBy     b
                         )
             ) $
-    xp6Tuple   xpCityObject
+    xp7Tuple   xpCityObject
                 -- Extra Generic Attributes
                 (xpList xpGenericAttribute)
                 -- Building Optional Information
                 xpBldgInfo
                 -- Building Models
                 xpBldgModels
+                -- Building Intersections
+                xpBldgInt
                 -- Building External Interfaces
                 (xpList $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)
                 (xpList $ xpElem "bldg:boundedBy" xpBldgBoundary)
+
+xpBldgInt :: PU BuildingIntersections
+xpBldgInt
+  = xpWrap  ( uncurry BuildingIntersections
+        , \ b ->    (   bLod1TerrainInt b
+                    ,   bLod2TerrainInt b
+                    )
+        ) $
+    xpPair  (xpOption xpBldgLod1Int)
+            (xpOption xpBldgLod2Int)
 
 xpBldgInfo :: PU BuildingInfo
 xpBldgInfo
