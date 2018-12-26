@@ -66,7 +66,10 @@ newtype MultiGeometry = MultiGeometry [Geometry]
 newtype MultiSolid = MultiSolid [Solid]
     deriving (Read, Show, Eq, Generic)
 
-newtype MultiSurface = MultiSurface [Surface]
+data MultiSurface = MultiSurface
+    {   msuFeature  :: Feature
+    ,   msuSurfaces :: [Surface]
+    }
     deriving (Read, Show, Eq, Generic)
 
 newtype MultiCurve = MultiCurve [Curve]

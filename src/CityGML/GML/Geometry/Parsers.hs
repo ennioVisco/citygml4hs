@@ -165,10 +165,11 @@ xpMultiSolid
 xpMultiSurface :: PU MultiSurface
 xpMultiSurface
   = xpElem "gml:MultiSurface" $
-    xpWrap  ( MultiSurface
-            , \ (MultiSurface ss) -> ss
-            )
-    (xpList $ xpElem "gml:surfaceMember" xpSurface)
+    xpWrap  ( uncurry MultiSurface
+            , \ ms -> (msuFeature ms, msuSurfaces ms)
+            ) $
+    xpPair  xpFeature
+            (xpList $ xpElem "gml:surfaceMember" xpSurface)
 
 xpMultiCurve :: PU MultiCurve
 xpMultiCurve
