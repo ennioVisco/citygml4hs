@@ -126,10 +126,16 @@ xpBldgLod2
     = xpAlt tag ps
         where
         tag (BldgLod2Solid _) = 0
+        tag (BldgLod2Multi _) = 1
         ps = [  xpWrap  ( BldgLod2Solid
                         , \ (BldgLod2Solid s) -> s
                         ) $
                 xpElem "bldg:lod2Solid" xpSolid
+
+            ,   xpWrap  ( BldgLod2Multi
+                        , \ (BldgLod2Multi s) -> s
+                        ) $
+                xpElem "bldg:lod2MultiSurface" xpMultiSurface
              ]
 
 xpBldgLod3 :: PU BldgLod3Model

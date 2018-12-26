@@ -72,8 +72,10 @@ newtype BldgLod2Int = BldgLod2Int MultiCurve
 newtype BldgLod1Model = BldgLod1Solid Solid
                  deriving (Read, Show, Eq, Generic)
 
-newtype BldgLod2Model = BldgLod2Solid Solid
-                 deriving (Read, Show, Eq, Generic)
+data BldgLod2Model =
+        BldgLod2Solid Solid
+    |   BldgLod2Multi MultiSurface
+    deriving (Read, Show, Eq, Generic)
 
 
 newtype BldgLod3Model = BldgLod3Multi MultiSurface
