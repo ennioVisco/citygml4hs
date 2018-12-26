@@ -11,24 +11,31 @@ xpXalAddress :: PU XalAddressDetails
 xpXalAddress
   = xpElem "xal:AddressDetails" $
     xpElem "xal:Country" $
-    xpWrap  ( \ (cn, lt, ln, tt, tnb, tnm) ->
-              XalAddressDetails cn lt ln tt tnb tnm
-            , \ d ->    (   xCountryName        d
-                        ,   xLocalityType       d
-                        ,   xLocalityName       d
-                        ,   xThoroughfareType   d
-                        ,   xThoroughfareNumber d
-                        ,   xThoroughfareName   d
-                        )
+    xpWrap  ( uncurry XalAddressDetails
+            , \ d -> (xCountryName d, xLocality d)
             ) $
-    xp6Tuple    (xpElem "xal:CountryName"               xpText)
-                (xpElem "xal:Locality"      $
-                        xpAttr "Type"                   xpText)
-                (xpElem "xal:Locality"      $
-                        xpElem "xal:LocalityName"       xpText)
-                (xpElem "xal:Thoroughfare"  $
-                                        xpAttr "Type"   xpText)
-                (xpElem "xal:Thoroughfare"  $
-                        xpElem "xal:ThoroughfareNumber" xpText)
-                (xpElem "xal:Thoroughfare"  $
-                        xpElem "xal:ThoroughfareName" xpText)
+    xpPair  (xpElem "xal:CountryName"  xpText)
+            xpLocality
+
+xpLocality :: PU XalLocality
+xpLocality
+  = xpElem "xal:Locality" $
+    xpWrap      ( uncurry3 XalLocality
+                , \ l -> (xLocalityType l, xLocalityName l, xThoroughfare l)
+                ) $
+    xpTriple    (xpAttr "Type"              xpText)
+                (xpElem "xal:LocalityName"  xpText)
+                xpThoroughfare
+
+
+xpThoroughfare :: PU XalThoroughfare
+xpThoroughfare
+  = xpElem "xal:Thoroughfare"  $
+    xpWrap      ( uncurry3 XalThoroughfare
+                , \ l ->    ( xThoroughfareType   l
+                            , xThoroughfareNumber l
+                            , xThoroughfareName   l )
+                ) $
+    xpTriple    (xpAttr "Type"                   xpText)
+                (xpElem "xal:ThoroughfareNumber" xpText)
+                (xpElem "xal:ThoroughfareName"   xpText)

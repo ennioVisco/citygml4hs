@@ -34,10 +34,18 @@ import           GHC.Generics
 </xal:AddressDetails>
 -}
 data XalAddressDetails = XalAddressDetails
-    {   xCountryName        :: String
-    ,   xLocalityType       :: String
-    ,   xLocalityName       :: String
-    ,   xThoroughfareType   :: String
+    {   xCountryName :: String
+    ,   xLocality    :: XalLocality
+    } deriving (Read, Show, Eq, Generic)
+
+data XalLocality = XalLocality
+    {   xLocalityType :: String
+    ,   xLocalityName :: String
+    ,   xThoroughfare :: XalThoroughfare
+    } deriving (Read, Show, Eq, Generic)
+
+data XalThoroughfare = XalThoroughfare
+    {   xThoroughfareType   :: String
     ,   xThoroughfareNumber :: String
     ,   xThoroughfareName   :: String
     } deriving (Read, Show, Eq, Generic)
