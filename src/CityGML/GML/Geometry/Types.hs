@@ -122,7 +122,10 @@ newtype Triangle = Triangle Ring
 newtype Rectangle = Rectangle Ring
     deriving (Read, Show, Eq, Generic)
 
-newtype Ring = LinearRing [Point]
+data Ring = LinearRing
+    {   rFeature :: Feature
+    ,   rPoints  :: [Point]
+    }
     deriving (Read, Show, Eq, Generic)
 
 -- .........................:::::::: _Curve ::::::::........................ --

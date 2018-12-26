@@ -333,11 +333,12 @@ xpTriangle
 
 xpRing :: PU Ring
 xpRing
-    = xpElem "gml:LinearRing"    $
-      xpWrap  ( LinearRing
-              , \ (LinearRing pp) -> pp
-              )
-      (xpList xpPoint)
+  = xpElem "gml:LinearRing"    $
+    xpWrap  ( uncurry LinearRing
+            , \ r -> (rFeature r, rPoints r)
+            ) $
+    xpPair  xpFeature
+            (xpList xpPoint)
 
 -- .........................:::::::: _Curve ::::::::........................ --
 
