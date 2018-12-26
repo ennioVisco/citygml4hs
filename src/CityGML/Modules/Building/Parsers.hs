@@ -26,6 +26,9 @@ import           Text.XML.HXT.Core
 instance XmlPickler BuildingModels where
     xpickle = xpBldgModels
 
+instance XmlPickler BuildingData where
+    xpickle = xpBuildingData
+
 instance XmlPickler BldgLod1Int where
     xpickle = xpBldgLod1Int
 
@@ -149,12 +152,28 @@ xpBldgLod3
                 xpElem "bldg:lod3MultiSurface" xpMultiSurface
              ]
 
-
 xpBuilding :: PU AbstractBuilding
-xpBuilding =
-    xpElem "bldg:Building"    $
-    xpWrap  (\(g, e, bi, bm, bt, b,i, a) ->
-                Building g e bi bm bt b i a
+xpBuilding
+    = xpAlt tag ps
+        where
+        tag (Building _)     = 0
+        tag (BuildingPart _) = 1
+        ps = [  xpWrap  ( Building
+                        , \ (Building b) -> b
+                        ) $
+                xpElem  "bldg:Building" xpBuildingData
+            ,   xpWrap  ( BuildingPart
+                        , \ (BuildingPart b) -> b
+                        ) $
+                xpElem "bldg:BuildingPart" xpBuildingData
+             ]
+
+
+
+xpBuildingData :: PU BuildingData
+xpBuildingData =
+    xpWrap  (\(g, e, bi, bm, bt, b,i, ps, a) ->
+                BldgData g e bi bm bt b i ps a
             , \ b ->    (   bObject        b
                         -- Extra Generic Attributes
                         ,   bExtras        b
@@ -167,10 +186,11 @@ xpBuilding =
                         -- Building External Interfaces
                         ,   bInstallations b
                         ,   bBoundedBy     b
-                        ,   bAddress b
+                        ,   bBuildingParts b
+                        ,   bAddress       b
                         )
             ) $
-    xp8Tuple   xpCityObject
+    xp9Tuple    xpCityObject
                 -- Extra Generic Attributes
                 (xpList xpGenericAttribute)
                 -- Building Optional Information
@@ -182,6 +202,7 @@ xpBuilding =
                 -- Building External Interfaces
                 (xpList   $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)
                 (xpList   $ xpElem "bldg:boundedBy"             xpBldgBoundary)
+                (xpList   $ xpElem "bldg:consistsOfBuildingPart"    xpBuilding)
                 (xpOption $ xpElem "bldg:address"                    xpAddress)
 
 xpBldgInt :: PU BuildingIntersections

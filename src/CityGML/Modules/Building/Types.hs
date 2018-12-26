@@ -23,7 +23,12 @@ import           CityGML.Modules.Generics.Types
 
 import           GHC.Generics
 
-data AbstractBuilding = Building
+data AbstractBuilding =
+        Building BuildingData
+    |   BuildingPart BuildingData
+    deriving (Read, Show, Eq, Generic)
+
+data BuildingData = BldgData
     {   bObject        :: CityObject
     -- Extra Generic Attributes
     ,   bExtras        :: [GenericAttribute]
@@ -34,6 +39,7 @@ data AbstractBuilding = Building
     -- Building External Interfaces
     ,   bInstallations :: [BuildingInstallation]
     ,   bBoundedBy     :: [BldgBoundary]
+    ,   bBuildingParts :: [AbstractBuilding]
     ,   bAddress       :: Maybe Address
     } deriving (Read, Show, Eq, Generic)
 
