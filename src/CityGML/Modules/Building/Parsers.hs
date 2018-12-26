@@ -257,21 +257,32 @@ xpBldgInst
 
 xpWallSurface :: PU WallSurface
 xpWallSurface
- =  xpWrap  ( uncurry3 WallSurface
-            , \s -> (wlObject s, wlLod3Model s, wlOpenings s)
+ =  xpWrap  ( uncurry4 WallSurface
+            , \s -> (wlObject s, wlLod2Model s, wlLod3Model s, wlOpenings s)
             ) $
-    xpTriple    xpCityObject
-                xpBldgLod3
+    xp4Tuple    xpCityObject
+                (xpOption xpBldgLod2)
+                (xpOption xpBldgLod3)
                 (xpList $ xpElem "bldg:opening" xpOpening)
 
 xpRoofSurface :: PU RoofSurface
 xpRoofSurface
- =  xpWrap  ( uncurry3 RoofSurface
-            , \s -> (rfObject s, rfLod3Model s, rfOpenings s)
+ =  xpWrap  ( uncurry4 RoofSurface
+            , \s -> (rfObject s, rfLod2Model s, rfLod3Model s, rfOpenings s)
             ) $
-    xpTriple    xpCityObject
-                xpBldgLod3
+    xp4Tuple    xpCityObject
+                (xpOption xpBldgLod2)
+                (xpOption xpBldgLod3)
                 (xpList $ xpElem "bldg:opening" xpOpening)
+
+xpBuildingSurface :: PU BuildingSurface
+xpBuildingSurface
+  =  xpWrap     ( uncurry3 BuildingSurface
+                , \s -> (bsObject s, bsLod2Model s, bsLod3Model s)) $
+
+    xpTriple    xpCityObject
+                (xpOption xpBldgLod2)
+                (xpOption xpBldgLod3)
 
 xpOpening :: PU Opening
 xpOpening
@@ -293,13 +304,6 @@ xpOpening
                         xpBldgLod3
           ]
 
-
-xpBuildingSurface :: PU BuildingSurface
-xpBuildingSurface
- =  xpWrap  ( uncurry BuildingSurface
-            , \s -> (bsObject s, bsLod3Model s)) $
-    xpPair  xpCityObject
-            xpBldgLod3
 
 xpMeasure :: PU Measure
 xpMeasure

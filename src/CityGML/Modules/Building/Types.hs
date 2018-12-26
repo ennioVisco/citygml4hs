@@ -88,15 +88,23 @@ data BldgBoundary =
 
 data WallSurface = WallSurface
     {   wlObject    :: CityObject
-    ,   wlLod3Model :: BldgLod3Model
+    ,   wlLod2Model :: Maybe BldgLod2Model
+    ,   wlLod3Model :: Maybe BldgLod3Model
     ,   wlOpenings  :: [Opening]
     } deriving (Read, Show, Eq, Generic)
 
 
 data RoofSurface = RoofSurface
     {   rfObject    :: CityObject
-    ,   rfLod3Model :: BldgLod3Model
+    ,   rfLod2Model :: Maybe BldgLod2Model
+    ,   rfLod3Model :: Maybe BldgLod3Model
     ,   rfOpenings  :: [Opening]
+    } deriving (Read, Show, Eq, Generic)
+
+data BuildingSurface = BuildingSurface
+    {   bsObject    :: CityObject
+    ,   bsLod2Model :: Maybe BldgLod2Model
+    ,   bsLod3Model :: Maybe BldgLod3Model
     } deriving (Read, Show, Eq, Generic)
 
 data Opening =
@@ -108,11 +116,6 @@ data Opening =
         {   wObject    :: CityObject
         ,   wLod3Model :: BldgLod3Model
         } deriving (Read, Show, Eq, Generic)
-
-data BuildingSurface = BuildingSurface
-    {   bsObject    :: CityObject
-    ,   bsLod3Model :: BldgLod3Model
-    } deriving (Read, Show, Eq, Generic)
 
 newtype BuildingInstallation = BldgInstallation [BldgBoundary]
     deriving (Read, Show, Eq, Generic)
