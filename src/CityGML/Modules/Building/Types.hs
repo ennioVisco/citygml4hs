@@ -34,6 +34,7 @@ data AbstractBuilding = Building
     -- Building External Interfaces
     ,   bInstallations :: [BuildingInstallation]
     ,   bBoundedBy     :: [BldgBoundary]
+    ,   bAddress       :: Maybe Address
     } deriving (Read, Show, Eq, Generic)
 
 data BuildingIntersections = BuildingIntersections
@@ -48,7 +49,6 @@ data BuildingInfo = BuildingInfo
     ,   bHeight        :: Maybe Measure
     ,   bYearOfConstr  :: Maybe String
     ,   bStAboveGround :: Maybe Int
-    ,   bAddress       :: Maybe Address
     } deriving (Read, Show, Eq, Generic)
 
 -- Building Models

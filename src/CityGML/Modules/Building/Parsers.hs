@@ -153,8 +153,8 @@ xpBldgLod3
 xpBuilding :: PU AbstractBuilding
 xpBuilding =
     xpElem "bldg:Building"    $
-    xpWrap  (\(g, e, bi, bm, bt, b,i) ->
-                Building g e bi bm bt b i
+    xpWrap  (\(g, e, bi, bm, bt, b,i, a) ->
+                Building g e bi bm bt b i a
             , \ b ->    (   bObject        b
                         -- Extra Generic Attributes
                         ,   bExtras        b
@@ -167,9 +167,10 @@ xpBuilding =
                         -- Building External Interfaces
                         ,   bInstallations b
                         ,   bBoundedBy     b
+                        ,   bAddress b
                         )
             ) $
-    xp7Tuple   xpCityObject
+    xp8Tuple   xpCityObject
                 -- Extra Generic Attributes
                 (xpList xpGenericAttribute)
                 -- Building Optional Information
@@ -179,8 +180,9 @@ xpBuilding =
                 -- Building Intersections
                 xpBldgInt
                 -- Building External Interfaces
-                (xpList $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)
-                (xpList $ xpElem "bldg:boundedBy" xpBldgBoundary)
+                (xpList   $ xpElem "bldg:outerBuildingInstallation" xpBldgInst)
+                (xpList   $ xpElem "bldg:boundedBy"             xpBldgBoundary)
+                (xpOption $ xpElem "bldg:address"                    xpAddress)
 
 xpBldgInt :: PU BuildingIntersections
 xpBldgInt
@@ -194,22 +196,20 @@ xpBldgInt
 
 xpBldgInfo :: PU BuildingInfo
 xpBldgInfo
-  = xpWrap  (\(f,r,h,y,s,a) ->
-            BuildingInfo f r h y s a
+  = xpWrap  (\(f,r,h,y,s) ->
+            BuildingInfo f r h y s
         , \ b ->    (   bFunction      b
                     ,   bRoofType      b
                     ,   bHeight        b
                     ,   bYearOfConstr  b
                     ,   bStAboveGround b
-                    ,   bAddress       b
                     )
         ) $
-    xp6Tuple    (xpOption $ xpElem "bldg:function"           xpText)
+    xp5Tuple    (xpOption $ xpElem "bldg:function"           xpText)
                 (xpOption $ xpElem "bldg:roofType"           xpText)
                 (xpOption                                 xpMeasure)
                 (xpOption $ xpElem "bldg:yearOfConstruction" xpText)
                 (xpOption $ xpElem "bldg:storeysAboveGround" xpPrim)
-                (xpOption $ xpElem "bldg:address"         xpAddress)
 
 xpBldgModels :: PU BuildingModels
 xpBldgModels
