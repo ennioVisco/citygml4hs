@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -20,12 +21,13 @@ module CityGML.Modules.Transportation.Types where
 import           CityGML.GML.Types
 
 import           GHC.Generics
+import           Identifiable
 
 data TransportationObject = Road
     {   transFeature   :: Feature
     ,   transLod1Model :: Maybe TransLod1Model
-    }   deriving (Read, Show, Eq, Generic)
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 
 data TransLod1Model = TransLod1MultiSurf MultiSurface
-                 deriving (Read, Show, Eq, Generic)
+                 deriving (Read, Show, Eq, Generic, Identifiable)

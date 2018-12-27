@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -17,7 +18,9 @@
 
 module CityGML.GML.Base where
 
+import           Data.Maybe
 import           GHC.Generics
+import           Identifiable
 import           Text.XML.HXT.Core
 
 -- | 'GML' provides the most basic interface to the underlying GML data.
@@ -42,7 +45,7 @@ data GML = GML
 data CodeType = CodeType
     {   value     :: String         -- ^ The actual name of the element.
     ,   codeSpace :: Maybe String   -- ^ The semantical space to which the name refers.
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic, Identifiable)
 
 
 instance XmlPickler GML where
@@ -73,3 +76,13 @@ xpCodeType =    xpWrap  ( uncurry CodeType
 
                 xpPair  xpText
                         (xpOption $ xpAttr "codeSpace" xpText)
+
+-- | The Identifiable class is the foundational helper to extract a UniqueID
+-- from a GML instance.
+instance Identifiable GML where
+    uid (GML Nothing [] Nothing)                  = "UNKNOWN_ID"
+    uid (GML (Just i) _ _)                        = i
+    uid (GML _ (n:_) _) | isNothing (codeSpace n) = value n
+                          | otherwise               = fromJust (codeSpace n) ++
+                                                      value n
+    uid (GML _ _ (Just d))                        = d

@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -20,19 +21,20 @@ module CityGML.Modules.Relief.Types where
 import           CityGML.GML.Types
 
 import           GHC.Generics
+import           Identifiable
 
 data ReliefFeature = ReliefFeature
         {   demFFeature   :: Feature
-        ,   demFLod       :: Integer
+        ,   demFLod       :: Int
         ,   demComponents :: [Relief]
         }
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 data ReliefComponent = ReliefComponent
         {   demCFeature :: Feature
-        ,   demCLod     :: Integer
+        ,   demCLod     :: Int
         }
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 data Relief =
         TINRelief
@@ -48,4 +50,4 @@ data Relief =
         ,   demBreaklines      :: Maybe MultiCurve
         ,   ridgeOrValleyLines :: Maybe MultiCurve
         }
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)

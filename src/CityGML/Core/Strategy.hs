@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -27,6 +28,7 @@ module CityGML.Core.Strategy
 where
 
 import           GHC.Generics
+import           Identifiable
 import           Text.XML.HXT.Core
 
 import           CityGML.Core.Types
@@ -54,7 +56,7 @@ import           CityGML.Modules.WaterBody.Parsers
 data CityModel = CityModel
     {   cFeature :: Feature
     ,   cMembers :: [CityObjectMember]
-    }   deriving (Read, Show, Eq, Generic)
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 data CityObjectMember =
         Site Site
@@ -66,13 +68,13 @@ data CityObjectMember =
     --    Grp  CityObjectGroup
     --    Frn  CityFurniture
     --    Luse LandUse
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 data Site =
         Bld AbstractBuilding
     |   Brg AbstractBridge
     --    Tun AbstractTunnel
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 
 

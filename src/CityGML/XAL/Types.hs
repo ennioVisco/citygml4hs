@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -18,6 +19,8 @@
 module CityGML.XAL.Types where
 
 import           GHC.Generics
+import           Identifiable
+
 
 {-
 <xal:AddressDetails>
@@ -36,16 +39,16 @@ import           GHC.Generics
 data XalAddressDetails = XalAddressDetails
     {   xCountryName :: String
     ,   xLocality    :: XalLocality
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic, Identifiable)
 
 data XalLocality = XalLocality
     {   xLocalityType :: String
     ,   xLocalityName :: String
     ,   xThoroughfare :: XalThoroughfare
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic, Identifiable)
 
 data XalThoroughfare = XalThoroughfare
     {   xThoroughfareType   :: String
     ,   xThoroughfareNumber :: String
     ,   xThoroughfareName   :: String
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic, Identifiable)

@@ -1,19 +1,21 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 module CityGML.ADEs.TopoADE where
 
 import           Data.Tree.NTree.TypeDefs
 import           GHC.Generics
+import           Identifiable
 import           Text.XML.HXT.Core
 
 newtype RelationSet = Rels [TopoRelation]
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 data TopoRelation = Near String [TopoNode]
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 data TopoNode = TopoBuilding String
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 instance XmlPickler RelationSet where
     xpickle = xpRelSet

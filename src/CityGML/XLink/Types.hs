@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -18,6 +19,8 @@
 module CityGML.XLink.Types where
 
 import           GHC.Generics
+import           Identifiable
+
 
 newtype XLink = XLink String
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)

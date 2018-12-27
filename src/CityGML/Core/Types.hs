@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -21,19 +22,20 @@ import           CityGML.GML.Types
 import           CityGML.XAL.Types
 
 import           GHC.Generics
+import           Identifiable
 
 data Address = Address XalAddressDetails
-    deriving (Read, Show, Eq, Generic)
+    deriving (Read, Show, Eq, Generic, Identifiable)
 
 data ExternalReference = ExternalReference
     {   erInformationSystem :: Maybe String
     ,   erExternalObjRef    :: ExternalObject
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic, Identifiable)
 
 data ExternalObject = ExternalObject
     {   eoName :: String
     ,   eoUri  :: Maybe String
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic, Identifiable)
 
 data CityObject = CityObject
     {   oFeature           :: Feature
@@ -43,4 +45,4 @@ data CityObject = CityObject
     ,   oGeneralizesTo     ::  [CityObject]
     ,   oRelativeToTerrain ::  Maybe String
     ,   oRelativeToWater   ::  Maybe String
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Generic, Identifiable)

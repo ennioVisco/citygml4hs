@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -20,12 +21,13 @@ module CityGML.Modules.Bridge.Types where
 import           CityGML.GML.Types
 
 import           GHC.Generics
+import           Identifiable
 
 data AbstractBridge = Bridge
     {   brgFeature   :: Feature
     ,   brgLod1Model :: Maybe BrgLod1Model
-    }   deriving (Read, Show, Eq, Generic)
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 
 data BrgLod1Model = BrgLod1MultiSurf MultiSurface
-                 deriving (Read, Show, Eq, Generic)
+                 deriving (Read, Show, Eq, Generic, Identifiable)

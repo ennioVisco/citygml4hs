@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 -- ------------------------------------------------------------
 
@@ -20,18 +21,19 @@ module CityGML.Modules.Generics.Types where
 import           CityGML.GML.Types
 
 import           GHC.Generics
+import           Identifiable
 
 data GenericCityObject = GenericCityObject
     {   genFeature   :: Feature
     ,   genLod1Model :: GenLod1Model
-    }   deriving (Read, Show, Eq, Generic)
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 
 newtype GenLod1Model = GenLod1Geometry MultiSurface
-                 deriving (Read, Show, Eq, Generic)
+                 deriving (Read, Show, Eq, Generic, Identifiable)
 
 data GenericAttribute =
         StringAttribute
         {   gaName  :: String
         ,   gaValue :: String
-        } deriving (Read, Show, Eq, Generic)
+        } deriving (Read, Show, Eq, Generic, Identifiable)
