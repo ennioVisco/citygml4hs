@@ -89,7 +89,7 @@ instance XmlPickler Site where
 
 xpCityModel :: PU CityModel
 xpCityModel
-    = xpElem "core:CityModel" $
+    = xpElem "CityModel" $
       xpNamespaces namespaces $
       xpWrap    ( uncurry CityModel
                 , \ c -> (cFeature c, cMembers c)
@@ -101,7 +101,7 @@ xpCityModel
 
 xpCityObjectMember :: PU CityObjectMember
 xpCityObjectMember
-  = xpElem "core:cityObjectMember" $
+  = xpElem "cityObjectMember" $
     xpAlt tag ps
         where
         tag (Site _) = 0

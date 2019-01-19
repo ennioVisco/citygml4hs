@@ -50,33 +50,33 @@ xpCityObject
                         )
             ) $
     xp7Tuple    xpFeature
-                (xpOption $ xpElem "core:creationDate"            xpText)
-                (xpOption $ xpElem "core:terminationDate"         xpText)
-                (xpList   $ xpElem "core:externalReference"     xpExtRef)
-                (xpList   $ xpElem "core:generalizesTo"     xpCityObject)
-                (xpOption $ xpElem "core:relativeToTerrain"       xpText)
-                (xpOption $ xpElem "core:relativeToWater"         xpText)
+                (xpOption $ xpElem "creationDate"            xpText)
+                (xpOption $ xpElem "terminationDate"         xpText)
+                (xpList   $ xpElem "externalReference"     xpExtRef)
+                (xpList   $ xpElem "generalizesTo"     xpCityObject)
+                (xpOption $ xpElem "relativeToTerrain"       xpText)
+                (xpOption $ xpElem "relativeToWater"         xpText)
 
 xpExtRef :: PU ExternalReference
 xpExtRef
   = xpWrap  ( uncurry ExternalReference
             , \ r -> (erInformationSystem r, erExternalObjRef r)
             ) $
-    xpPair  (xpOption $ xpElem "core:informationSystem" xpText)
-            (xpElem            "core:externalObject"  xpExtObj)
+    xpPair  (xpOption $ xpElem "informationSystem" xpText)
+            (xpElem            "externalObject"  xpExtObj)
 
 xpExtObj :: PU ExternalObject
 xpExtObj
   = xpWrap  ( uncurry ExternalObject
             , \ o -> (eoName o, eoUri o)
             ) $
-    xpPair  (xpElem            "core:name" xpText)
-            (xpOption $ xpElem "core:uri"  xpText)
+    xpPair  (xpElem            "name" xpText)
+            (xpOption $ xpElem "uri"  xpText)
 
 xpAddress :: PU Address
 xpAddress
-  = xpElem "core:Address"    $
-    xpElem "core:xalAddress" $
+  = xpElem "Address"    $
+    xpElem "xalAddress" $
     xpWrap  ( Address
             , \ (Address a) -> a
             )
