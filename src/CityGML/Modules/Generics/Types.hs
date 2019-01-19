@@ -34,6 +34,15 @@ newtype GenLod1Model = GenLod1Geometry MultiSurface
 
 data GenericAttribute =
         StringAttribute
-        {   gaName  :: String
-        ,   gaValue :: String
-        } deriving (Read, Show, Eq, Generic, Identifiable)
+        {   gsaName  :: String
+        ,   gsaValue :: String
+        }
+    |   IntAttribute
+        {   giaName  :: String
+        ,   giaValue :: String
+        }
+    |   DoubleAttribute
+        {   gdaName  :: String
+        ,   gdaValue :: String
+        }
+    deriving (Read, Show, Eq, Generic, Identifiable)

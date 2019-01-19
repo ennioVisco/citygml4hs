@@ -52,9 +52,29 @@ xpGenerics =
 
 xpGenericAttribute :: PU GenericAttribute
 xpGenericAttribute
-  = xpElem "gen:stringAttribute" $
-    xpWrap  ( uncurry StringAttribute
-            , \ a -> (gaName a, gaValue a)
-            ) $
-    xpPair  (xpAttr "name"      xpText)
-            (xpElem "gen:value" xpText)
+  = xpAlt tag ps
+        where
+        tag (StringAttribute _ _) = 0
+        tag (IntAttribute    _ _) = 1
+        tag (DoubleAttribute _ _) = 2
+        ps = [  xpElem  "gen:stringAttribute" $
+                xpWrap  ( uncurry StringAttribute
+                        , \ a -> (gsaName a, gsaValue a)
+                        ) $
+                xpPair  (xpAttr "name"      xpText)
+                        (xpElem "gen:value" xpText)
+
+             ,  xpElem  "gen:intAttribute" $
+                xpWrap  ( uncurry IntAttribute
+                        , \ a -> (giaName a, giaValue a)
+                        ) $
+                xpPair  (xpAttr "name"      xpText)
+                        (xpElem "gen:value" xpText)
+
+            ,  xpElem   "gen:doubleAttribute" $
+                        xpWrap  ( uncurry DoubleAttribute
+                                , \ a -> (gdaName a, gdaValue a)
+                                ) $
+                        xpPair  (xpAttr "name"      xpText)
+                                (xpElem "gen:value" xpText)
+             ]
