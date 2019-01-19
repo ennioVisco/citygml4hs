@@ -2,7 +2,6 @@ module CityGML.Namespaces where
 
 
 modules = [
-        (""      , "http://www.opengis.net/citygml/2.0"                 ),
         ("gml"  , "http://www.opengis.net/gml"                          ),
         ("wtr"  , "http://www.opengis.net/citygml/waterbody/2.0"        ),
         ("app"  , "http://www.opengis.net/citygml/appearance/2.0"       ),
