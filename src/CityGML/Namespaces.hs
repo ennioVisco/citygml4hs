@@ -17,7 +17,7 @@ modules = [
         ("brid" , "http://www.opengis.net/citygml/bridge/2.0"           ),
         ("gen"  , "http://www.opengis.net/citygml/generics/2.0"         ),
         ("luse" , "http://www.opengis.net/citygml/landuse/2.0"          ),
-        ("xal"   , "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"           ),
+        ("xAL"   , "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"           ),
         ("xlink" , "http://www.w3.org/1999/xlink"                       ),
         ("xsi"   , "http://www.w3.org/2001/XMLSchema-instance"          )
     ]
