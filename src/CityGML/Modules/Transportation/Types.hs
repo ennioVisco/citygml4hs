@@ -18,16 +18,72 @@
 
 module CityGML.Modules.Transportation.Types where
 
+import           CityGML.Core.Types
 import           CityGML.GML.Types
-
 import           GHC.Generics
 import           Identifiable
 
-data TransportationObject = Road
-    {   transFeature   :: Feature
-    ,   transLod1Model :: Maybe TransLod1Model
+data TransportationObject =
+        TC TransportationComplex
+    |   TA TrafficArea
+    |   AT AuxiliaryTrafficArea
+    deriving (Read, Show, Eq, Generic, Identifiable)
+
+data TransportationComplex = TransportationComplex
+    {   tcObject               :: CityObject
+    ,   tcLod0Network          :: Maybe GeometricComplex
+    ,   tcLod1Model            :: Maybe MultiSurface
+    ,   tcData                 :: TransportationData
+    ,   tcTrafficArea          :: [TrafficArea]
+    ,   tcAuxiliaryTrafficArea :: [AuxiliaryTrafficArea]
+    } deriving (Read, Show, Eq, Generic, Identifiable)
+
+data TrafficArea = TrafficArea
+    {   taObject          :: CityObject
+    ,   taData            :: TransportationData
+    ,   taSurfaceMaterial :: Maybe String
+    } deriving (Read, Show, Eq, Generic, Identifiable)
+
+data AuxiliaryTrafficArea = AuxiliaryTrafficArea
+    {   ataObject          :: CityObject
+    ,   ataData            :: TransportationData
+    ,   ataSurfaceMaterial :: Maybe String
+    }
+    deriving (Read, Show, Eq, Generic, Identifiable)
+
+data TransportationData = TransportationData
+    {   tranClass     :: Maybe String
+    ,   tranFunction  :: Maybe String
+    ,   tranUsage     :: Maybe String
+    ,   tranLod2Model :: Maybe MultiSurface
+    ,   tranLod3Model :: Maybe MultiSurface
+    ,   tranLod4Model :: Maybe MultiSurface
     }   deriving (Read, Show, Eq, Generic, Identifiable)
 
+data Road = Road
+    {   roTranComplex   :: TransportationComplex
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
 
-data TransLod1Model = TransLod1MultiSurf MultiSurface
+data Railway = Railway
+    {   raTranComplex   :: TransportationComplex
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
+
+data Square = Square
+    {   sTranComplex   :: TransportationComplex
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
+
+data Track = Track
+    {   tTranComplex   :: TransportationComplex
+    }   deriving (Read, Show, Eq, Generic, Identifiable)
+
+data TranLod1Model = TranLod1MultiSurf MultiSurface
+                 deriving (Read, Show, Eq, Generic, Identifiable)
+
+data TranLod2Model = TranLod2MultiSurf MultiSurface
+                 deriving (Read, Show, Eq, Generic, Identifiable)
+
+data TranLod3Model = TranLod3MultiSurf MultiSurface
+                 deriving (Read, Show, Eq, Generic, Identifiable)
+
+data TranLod4Model = TranLod4MultiSurf MultiSurface
                  deriving (Read, Show, Eq, Generic, Identifiable)
