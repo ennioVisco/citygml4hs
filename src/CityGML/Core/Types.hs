@@ -19,6 +19,7 @@
 module CityGML.Core.Types where
 
 import           CityGML.GML.Types
+import           CityGML.Modules.Generics.Types (GenericAttribute)
 import           CityGML.XAL.Types
 
 import           GHC.Generics
@@ -38,11 +39,12 @@ data ExternalObject = ExternalObject
     } deriving (Read, Show, Eq, Generic, Identifiable)
 
 data CityObject = CityObject
-    {   oFeature           :: Feature
+    {   oFeature           ::  Feature
     ,   oCreationDate      ::  Maybe String
     ,   oTerminationDate   ::  Maybe String
-    ,   oExternalReference ::  [ExternalReference]
-    ,   oGeneralizesTo     ::  [CityObject]
+    ,   oExternalReference :: [ExternalReference]
+    ,   oGeneralizesTo     :: [CityObject]
     ,   oRelativeToTerrain ::  Maybe String
     ,   oRelativeToWater   ::  Maybe String
+    ,   oAttributes        :: [GenericAttribute]
     } deriving (Read, Show, Eq, Generic, Identifiable)

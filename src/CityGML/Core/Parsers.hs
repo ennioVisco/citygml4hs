@@ -21,6 +21,7 @@ import           Text.XML.HXT.Core
 
 import           CityGML.Core.Types
 import           CityGML.GML.Parsers
+import           CityGML.Modules.Generics.Parsers (xpGenericAttribute)
 import           CityGML.XAL.Parsers
 
 instance XmlPickler CityObject where
@@ -38,8 +39,8 @@ instance XmlPickler Address where
 
 xpCityObject :: PU CityObject
 xpCityObject
-  = xpWrap  ( \ (f, cd, td, e, g, rt, rw) ->
-              CityObject f cd td e g rt rw
+  = xpWrap  ( \ (f, cd, td, e, g, rt, rw, ga) ->
+              CityObject f cd td e g rt rw ga
             , \ o ->    (   oFeature            o
                         ,   oCreationDate       o
                         ,   oTerminationDate    o
@@ -47,15 +48,17 @@ xpCityObject
                         ,   oGeneralizesTo      o
                         ,   oRelativeToTerrain  o
                         ,   oRelativeToWater    o
+                        ,   oAttributes         o
                         )
             ) $
-    xp7Tuple    xpFeature
+    xp8Tuple    xpFeature
                 (xpOption $ xpElem "creationDate"            xpText)
                 (xpOption $ xpElem "terminationDate"         xpText)
                 (xpList   $ xpElem "externalReference"     xpExtRef)
                 (xpList   $ xpElem "generalizesTo"     xpCityObject)
                 (xpOption $ xpElem "relativeToTerrain"       xpText)
                 (xpOption $ xpElem "relativeToWater"         xpText)
+                (xpList   xpGenericAttribute)
 
 xpExtRef :: PU ExternalReference
 xpExtRef
