@@ -24,7 +24,10 @@ import           GHC.Generics
 import           Identifiable
 
 data TransportationObject =
-        TC TransportationComplex
+        TCRO Road
+    |   TCRA Railway
+    |   TCSQ Square
+    |   TCTR Track
     |   TA TrafficArea
     |   AT AuxiliaryTrafficArea
     deriving (Read, Show, Eq, Generic, Identifiable)

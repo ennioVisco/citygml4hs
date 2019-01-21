@@ -46,23 +46,41 @@ instance XmlPickler Road where
 xpTransportation :: PU TransportationObject
 xpTransportation = xpAlt tag ps
             where
-            tag (TC _) = 0
-            tag (TA _) = 1
-            tag (AT _) = 2
-            ps = [  xpWrap  ( TC
-                            , \ (TC c) -> c
+            tag (TCRO _) = 0
+            tag (TCRA _) = 1
+            tag (TCSQ _) = 2
+            tag (TCTR _) = 3
+            tag (TA _)   = 4
+            tag (AT _)   = 5
+            ps = [  xpWrap  ( TCRO
+                            , \ (TCRO c) -> c
                             ) $
-                    xpTranComplex
+                    xpRoad
+
+                 ,  xpWrap  ( TCRA
+                            , \ (TCRA c) -> c
+                            ) $
+                    xpRailway
+
+                 ,  xpWrap  ( TCSQ
+                            , \ (TCSQ c) -> c
+                            ) $
+                    xpSquare
+
+                 ,  xpWrap  ( TCTR
+                            , \ (TCTR c) -> c
+                            ) $
+                    xpTrack
 
                  ,  xpWrap  ( TA
                             , \ (TA a) -> a
                             ) $
                     xpTrafficArea
 
-                  ,  xpWrap  ( AT
-                             , \ (AT a) -> a
-                             ) $
-                     xpAuxTrafficArea
+                 ,  xpWrap  ( AT
+                            , \ (AT a) -> a
+                            ) $
+                    xpAuxTrafficArea
                  ]
 
 xpTrafficArea :: PU TrafficArea
