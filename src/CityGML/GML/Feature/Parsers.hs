@@ -52,8 +52,8 @@ xpBoundedBy
                 , \ b -> ( srsDimension b, srsName b, lCorner b, uCorner b )
                 ) $
 
-    xp4Tuple    (xpAttr "srsDimension"      xpPrim)
-                (xpAttr "srsName"           xpText)
+    xp4Tuple    (xpAttr "srsName"           xpText)
+                (xpAttr "srsDimension"      xpPrim)
                 (xpElem "gml:lowerCorner"   xpText)
                 (xpElem "gml:upperCorner"   xpText)
 

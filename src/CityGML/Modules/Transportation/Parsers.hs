@@ -73,7 +73,7 @@ xpTrafficArea
             ) $
     xpTriple    xpCityObject
                 xpTranData
-                (xpOption xpText)
+                (xpOption $ xpElem "tran:surfaceMaterial" xpText)
 
 xpAuxTrafficArea :: PU AuxiliaryTrafficArea
 xpAuxTrafficArea
@@ -83,7 +83,7 @@ xpAuxTrafficArea
             ) $
     xpTriple    xpCityObject
                 xpTranData
-                (xpOption xpText)
+                (xpOption $ xpElem "tran:surfaceMaterial" xpText)
 
 xpTranComplex :: PU TransportationComplex
 xpTranComplex
