@@ -35,7 +35,7 @@ newtype GenLod1Model = GenLod1Geometry MultiSurface
 data GenericAttribute =
         StringAttribute
         {   gsaName  :: String
-        ,   gsaValue :: String
+        ,   gsaValue :: Maybe String
         }
     |   IntAttribute
         {   giaName  :: String

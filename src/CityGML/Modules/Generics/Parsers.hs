@@ -62,7 +62,7 @@ xpGenericAttribute
                         , \ a -> (gsaName a, gsaValue a)
                         ) $
                 xpPair  (xpAttr "name"      xpText)
-                        (xpElem "gen:value" xpText)
+                        (xpElem "gen:value" $ xpOption xpText)
 
              ,  xpElem  "gen:intAttribute" $
                 xpWrap  ( uncurry IntAttribute
@@ -71,10 +71,10 @@ xpGenericAttribute
                 xpPair  (xpAttr "name"      xpText)
                         (xpElem "gen:value" xpText)
 
-            ,  xpElem   "gen:doubleAttribute" $
-                        xpWrap  ( uncurry DoubleAttribute
-                                , \ a -> (gdaName a, gdaValue a)
-                                ) $
-                        xpPair  (xpAttr "name"      xpText)
-                                (xpElem "gen:value" xpText)
+            ,   xpElem   "gen:doubleAttribute" $
+                xpWrap  ( uncurry DoubleAttribute
+                        , \ a -> (gdaName a, gdaValue a)
+                        ) $
+                xpPair  (xpAttr "name"      xpText)
+                        (xpElem "gen:value" xpText)
              ]
