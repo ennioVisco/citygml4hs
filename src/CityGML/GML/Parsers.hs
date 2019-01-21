@@ -15,10 +15,12 @@
 
 module CityGML.GML.Parsers
     (
+    module Base,
     module Geometry,
     module Feature
     )
 where
 
+import           CityGML.GML.Base             as Base
 import           CityGML.GML.Feature.Parsers  as Feature
 import           CityGML.GML.Geometry.Parsers as Geometry

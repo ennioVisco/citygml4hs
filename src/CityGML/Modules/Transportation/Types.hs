@@ -53,10 +53,10 @@ data AuxiliaryTrafficArea = AuxiliaryTrafficArea
     deriving (Read, Show, Eq, Generic, Identifiable)
 
 data TransportationData = TransportationData
-    {   tranClass           :: Maybe String
-    ,   tranFunction        :: Maybe String
-    ,   tranUsage           :: Maybe String
-    ,   tranSurfaceMaterial :: Maybe String
+    {   tranClass           :: Maybe CodeType
+    ,   tranFunction        :: [CodeType]
+    ,   tranUsage           :: [CodeType]
+    ,   tranSurfaceMaterial :: Maybe CodeType
     ,   tranLod2Model       :: Maybe MultiSurface
     ,   tranLod3Model       :: Maybe MultiSurface
     ,   tranLod4Model       :: Maybe MultiSurface

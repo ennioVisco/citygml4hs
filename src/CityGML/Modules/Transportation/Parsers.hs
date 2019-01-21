@@ -121,10 +121,10 @@ xpTranData
                         tranSurfaceMaterial d,
                         tranLod2Model d, tranLod3Model d, tranLod4Model d )
             ) $
-    xp7Tuple    (xpOption $ xpElem "tran:class"                    xpText)
-                (xpOption $ xpElem "tran:function"                 xpText)
-                (xpOption $ xpElem "tran:usage"                    xpText)
-                (xpOption $ xpElem "tran:surfaceMaterial"          xpText)
+    xp7Tuple    (xpOption $ xpElem "tran:class"                xpCodeType)
+                (xpList   $ xpElem "tran:function"             xpCodeType)
+                (xpList   $ xpElem "tran:usage"                xpCodeType)
+                (xpOption $ xpElem "tran:surfaceMaterial"      xpCodeType)
                 (xpOption $ xpElem "tran:lod2MultiSurface" xpMultiSurface)
                 (xpOption $ xpElem "tran:lod3MultiSurface" xpMultiSurface)
                 (xpOption $ xpElem "tran:lod4MultiSurface" xpMultiSurface)
