@@ -32,9 +32,11 @@ data AbstractBuilding =
 
 data BuildingData = BldgData
     {   bObject        :: CityObject
-    -- Extra Generic Attributes
+    -- Building Optional Information
     ,   bInfo          :: BuildingInfo
+    -- Building Models
     ,   bModels        :: BuildingModels
+    -- Building Intersections
     ,   bIntersection  :: BuildingIntersections
     -- Building External Interfaces
     ,   bInstallations :: [BuildingInstallation]
