@@ -33,8 +33,6 @@ data AbstractBuilding =
 data BuildingData = BldgData
     {   bObject        :: CityObject
     -- Extra Generic Attributes
-    ,   bExtras        :: [GenericAttribute]
-
     ,   bInfo          :: BuildingInfo
     ,   bModels        :: BuildingModels
     ,   bIntersection  :: BuildingIntersections

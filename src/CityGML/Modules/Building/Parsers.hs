@@ -19,7 +19,6 @@ module CityGML.Modules.Building.Parsers where
 import           CityGML.Core.Parsers
 import           CityGML.GML.Parsers
 import           CityGML.Modules.Building.Types
-import           CityGML.Modules.Generics.Parsers
 import           Text.XML.HXT.Core
 
 
@@ -172,11 +171,9 @@ xpBuilding
 
 xpBuildingData :: PU BuildingData
 xpBuildingData =
-    xpWrap  (\(g, e, bi, bm, bt, b,i, ps, a) ->
-                BldgData g e bi bm bt b i ps a
+    xpWrap  (\(g, bi, bm, bt, b,i, ps, a) ->
+                BldgData g bi bm bt b i ps a
             , \ b ->    (   bObject        b
-                        -- Extra Generic Attributes
-                        ,   bExtras        b
                         -- Building Optional Information
                         ,   bInfo          b
                         -- Building Models
@@ -190,9 +187,7 @@ xpBuildingData =
                         ,   bAddress       b
                         )
             ) $
-    xp9Tuple    xpCityObject
-                -- Extra Generic Attributes
-                (xpList xpGenericAttribute)
+    xp8Tuple    xpCityObject
                 -- Building Optional Information
                 xpBldgInfo
                 -- Building Models
