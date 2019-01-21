@@ -33,8 +33,7 @@ data TransportationObject =
     deriving (Read, Show, Eq, Generic, Identifiable)
 
 data TransportationComplex = TransportationComplex
-    {   tcObject               :: CityObject
-    ,   tcLod0Network          :: Maybe GeometricComplex
+    {   tcLod0Network          :: Maybe GeometricComplex
     ,   tcLod1Model            :: Maybe MultiSurface
     ,   tcData                 :: TransportationData
     ,   tcTrafficArea          :: [TrafficArea]
@@ -63,19 +62,23 @@ data TransportationData = TransportationData
     }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 data Road = Road
-    {   roTranComplex   :: TransportationComplex
+    {   roObject      :: CityObject
+    ,   roTranComplex :: TransportationComplex
     }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 data Railway = Railway
-    {   raTranComplex   :: TransportationComplex
+    {   raObject      :: CityObject
+    ,   raTranComplex :: TransportationComplex
     }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 data Square = Square
-    {   sTranComplex   :: TransportationComplex
+    {   sObject      :: CityObject
+    ,   sTranComplex :: TransportationComplex
     }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 data Track = Track
-    {   tTranComplex   :: TransportationComplex
+    {   tObject      :: CityObject
+    ,   tTranComplex :: TransportationComplex
     }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 data TranLod1Model = TranLod1MultiSurf MultiSurface

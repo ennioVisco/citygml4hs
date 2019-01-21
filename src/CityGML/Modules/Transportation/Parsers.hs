@@ -103,12 +103,11 @@ xpAuxTrafficArea
 
 xpTranComplex :: PU TransportationComplex
 xpTranComplex
-  = xpWrap  ( \(o, l0, l1, d, ta, at ) -> TransportationComplex o l0 l1 d ta at
-            , \ c -> ( tcObject c, tcLod0Network c, tcLod1Model c
-                     , tcData c, tcTrafficArea c, tcAuxiliaryTrafficArea c )
+  = xpWrap  ( \(l0, l1, d, ta, at ) -> TransportationComplex l0 l1 d ta at
+            , \ c -> ( tcLod0Network c, tcLod1Model c,
+                       tcData c, tcTrafficArea c, tcAuxiliaryTrafficArea c )
             ) $
-    xp6Tuple    xpCityObject
-                (xpOption $ xpElem "tran:lod0Network"        xpGeometricComplex)
+    xp5Tuple    (xpOption $ xpElem "tran:lod0Network"        xpGeometricComplex)
                 (xpOption $ xpElem "tran:lod1MultiSurface"       xpMultiSurface)
                 xpTranData
                 (xpList   $ xpElem "tran:trafficArea"             xpTrafficArea)
@@ -132,31 +131,35 @@ xpTranData
 xpRoad :: PU Road
 xpRoad
   = xpElem "tran:Road"    $
-    xpWrap  ( Road
-            , \ (Road tc) -> tc
+    xpWrap  ( uncurry Road
+            , \ r -> (roObject r, roTranComplex r)
             ) $
-    xpTranComplex
+    xpPair  xpCityObject
+            xpTranComplex
 
 xpRailway :: PU Railway
 xpRailway
   = xpElem "tran:Railway"    $
-    xpWrap  ( Railway
-            , \ (Railway tc) -> tc
+    xpWrap  ( uncurry Railway
+            , \ r -> (raObject r, raTranComplex r)
             ) $
-    xpTranComplex
+    xpPair  xpCityObject
+            xpTranComplex
 
 xpSquare :: PU Square
 xpSquare
   = xpElem "tran:Square"    $
-    xpWrap  ( Square
-            , \ (Square tc) -> tc
+    xpWrap  ( uncurry Square
+            , \ s -> (sObject s, sTranComplex s)
             ) $
-    xpTranComplex
+    xpPair  xpCityObject
+            xpTranComplex
 
 xpTrack :: PU Track
 xpTrack
   = xpElem "tran:Track"    $
-    xpWrap  ( Track
-            , \ (Track tc) -> tc
+    xpWrap  ( uncurry Track
+            , \ t -> (tObject t, tTranComplex t)
             ) $
-    xpTranComplex
+    xpPair  xpCityObject
+            xpTranComplex
