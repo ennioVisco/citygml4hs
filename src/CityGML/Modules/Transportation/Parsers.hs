@@ -86,22 +86,20 @@ xpTransportation = xpAlt tag ps
 xpTrafficArea :: PU TrafficArea
 xpTrafficArea
   = xpElem  "tran:TrafficArea" $
-    xpWrap  ( uncurry3 TrafficArea
-            , \ a -> (taObject  a, taData a, taSurfaceMaterial a)
+    xpWrap  ( uncurry TrafficArea
+            , \ a -> (taObject  a, taData a)
             ) $
-    xpTriple    xpCityObject
-                xpTranData
-                (xpOption $ xpElem "tran:surfaceMaterial" xpText)
+    xpPair  xpCityObject
+            xpTranData
 
 xpAuxTrafficArea :: PU AuxiliaryTrafficArea
 xpAuxTrafficArea
   = xpElem  "tran:AuxiliaryTrafficArea" $
-    xpWrap  ( uncurry3 AuxiliaryTrafficArea
-            , \ a -> (ataObject  a, ataData a, ataSurfaceMaterial a)
+    xpWrap  ( uncurry AuxiliaryTrafficArea
+            , \ a -> (ataObject  a, ataData a)
             ) $
-    xpTriple    xpCityObject
-                xpTranData
-                (xpOption $ xpElem "tran:surfaceMaterial" xpText)
+    xpPair  xpCityObject
+            xpTranData
 
 xpTranComplex :: PU TransportationComplex
 xpTranComplex
@@ -118,13 +116,15 @@ xpTranComplex
 
 xpTranData :: PU TransportationData
 xpTranData
- =  xpWrap  ( \(c, f, u, l2, l3, l4) -> TransportationData c f u l2 l3 l4
+ =  xpWrap  ( \(c, f, u, sm, l2, l3, l4) -> TransportationData c f u sm l2 l3 l4
             , \ d -> (  tranClass d, tranFunction d, tranUsage d,
+                        tranSurfaceMaterial d,
                         tranLod2Model d, tranLod3Model d, tranLod4Model d )
             ) $
-    xp6Tuple    (xpOption $ xpElem "tran:class"                    xpText)
+    xp7Tuple    (xpOption $ xpElem "tran:class"                    xpText)
                 (xpOption $ xpElem "tran:function"                 xpText)
                 (xpOption $ xpElem "tran:usage"                    xpText)
+                (xpOption $ xpElem "tran:surfaceMaterial"          xpText)
                 (xpOption $ xpElem "tran:lod2MultiSurface" xpMultiSurface)
                 (xpOption $ xpElem "tran:lod3MultiSurface" xpMultiSurface)
                 (xpOption $ xpElem "tran:lod4MultiSurface" xpMultiSurface)

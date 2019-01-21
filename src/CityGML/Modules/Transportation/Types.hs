@@ -42,25 +42,24 @@ data TransportationComplex = TransportationComplex
     } deriving (Read, Show, Eq, Generic, Identifiable)
 
 data TrafficArea = TrafficArea
-    {   taObject          :: CityObject
-    ,   taData            :: TransportationData
-    ,   taSurfaceMaterial :: Maybe String
+    {   taObject :: CityObject
+    ,   taData   :: TransportationData
     } deriving (Read, Show, Eq, Generic, Identifiable)
 
 data AuxiliaryTrafficArea = AuxiliaryTrafficArea
-    {   ataObject          :: CityObject
-    ,   ataData            :: TransportationData
-    ,   ataSurfaceMaterial :: Maybe String
+    {   ataObject :: CityObject
+    ,   ataData   :: TransportationData
     }
     deriving (Read, Show, Eq, Generic, Identifiable)
 
 data TransportationData = TransportationData
-    {   tranClass     :: Maybe String
-    ,   tranFunction  :: Maybe String
-    ,   tranUsage     :: Maybe String
-    ,   tranLod2Model :: Maybe MultiSurface
-    ,   tranLod3Model :: Maybe MultiSurface
-    ,   tranLod4Model :: Maybe MultiSurface
+    {   tranClass           :: Maybe String
+    ,   tranFunction        :: Maybe String
+    ,   tranUsage           :: Maybe String
+    ,   tranSurfaceMaterial :: Maybe String
+    ,   tranLod2Model       :: Maybe MultiSurface
+    ,   tranLod3Model       :: Maybe MultiSurface
+    ,   tranLod4Model       :: Maybe MultiSurface
     }   deriving (Read, Show, Eq, Generic, Identifiable)
 
 data Road = Road
