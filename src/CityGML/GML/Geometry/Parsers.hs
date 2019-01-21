@@ -254,7 +254,7 @@ xpSurface
   = xpAlt tag ps
         where
         tag (Polygon         _ _ _) = 0
-        tag (CompositeSurface    _) = 1
+        tag (CompositeSurface  _ _) = 1
         tag (Surface             _) = 2
         tag (OrientableSurface _ _) = 3
         tag (SuLink              _) = 4
@@ -284,10 +284,11 @@ xpPolygon
 xpCompositeSurface :: PU Surface
 xpCompositeSurface
   = xpElem "gml:CompositeSurface" $
-    xpWrap  ( CompositeSurface
-            , \ (CompositeSurface ss) -> ss
-            )
-    (xpList $ xpElem "gml:surfaceMember" xpSurface)
+    xpWrap  ( uncurry CompositeSurface
+            , \ cs -> (csFeature cs, csMembers cs)
+            ) $
+    xpPair  xpFeature
+            (xpList $ xpElem "gml:surfaceMember" xpSurface)
 
 xpSingleSurface :: PU Surface
 xpSingleSurface

@@ -106,7 +106,10 @@ data Surface =
         ,   scExterior ::  Ring
         ,   scInterior :: [Ring]
         }
-    |   CompositeSurface [Surface]
+    |   CompositeSurface
+        {   csFeature :: Feature
+        ,   csMembers :: [Surface]
+        }
     |   Surface [SurfacePatch]
     |   OrientableSurface
         {   sOrientation :: String
