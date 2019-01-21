@@ -48,8 +48,8 @@ xpBoundedBy :: PU BoundedBy
 xpBoundedBy
   = xpElem  "gml:boundedBy" $
     xpElem  "gml:Envelope"  $
-    xpWrap      (\(d,n,l,u) -> BoundedBy d n l u
-                , \ b -> ( srsDimension b, srsName b, lCorner b, uCorner b )
+    xpWrap      (\(n,d,l,u) -> BoundedBy d n l u
+                , \ b -> ( srsName b, srsDimension b, lCorner b, uCorner b )
                 ) $
 
     xp4Tuple    (xpAttr "srsName"           xpText)
