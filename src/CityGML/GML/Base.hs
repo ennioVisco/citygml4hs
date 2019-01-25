@@ -83,8 +83,9 @@ xpCodeType =    xpWrap  ( uncurry CodeType
 -- from a GML instance.
 instance Identifiable GML where
     uid (GML Nothing [] Nothing)                  = "UNKNOWN_ID"
+    uid (GML (Just i) (n:_) _)                    = i (codeSpace n) ++  value n
     uid (GML (Just i) _ _)                        = i
     uid (GML _ (n:_) _) | isNothing (codeSpace n) = value n
-                          | otherwise               = fromJust (codeSpace n) ++
-                                                      value n
+                        | otherwise               = fromJust (codeSpace n) ++
+                                                    value n
     uid (GML _ _ (Just d))                        = d
