@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 
 -- ------------------------------------------------------------
 
@@ -32,6 +33,7 @@
 module CityGML.GML.Geometry.Types where
 
 import           GHC.Generics
+import           Data.Data
 import           Identifiable
 
 import           CityGML.GML.Feature.Types
@@ -43,12 +45,12 @@ data Geometry =
         GC GeometricComplex
     |   GP GeometricPrimitive
     |   GA GeometricAggregate
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- .....................:::::::: GeometricComplex :::::..................... --
 
 newtype GeometricComplex = GeometricComplex [GeometricPrimitive]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- ...............:::::::: _AbstractGeometricAggregate :::::................ --
 
@@ -58,27 +60,27 @@ data GeometricAggregate =
     |   MSU MultiSurface
     |   MCU MultiCurve
     |   MPO MultiPoint
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- ...................:::::::: GeometricAggregates ::::::::................. --
 
 newtype MultiGeometry = MultiGeometry [Geometry]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 newtype MultiSolid = MultiSolid [Solid]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 data MultiSurface = MultiSurface
     {   msuFeature  :: Feature
     ,   msuSurfaces :: [Surface]
     }
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 newtype MultiCurve = MultiCurve [Curve]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 newtype MultiPoint = MultiPoint [Point]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- ...................:::::::: GeometricPrimitive ::::::::.................. --
 
@@ -87,7 +89,7 @@ data GeometricPrimitive =
     |   SU Surface
     |   CU Curve
     |   PO Point
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- .........................:::::::: _Solid ::::::::........................ --
 data Solid =
@@ -96,7 +98,7 @@ data Solid =
         ,   sdInterior :: [Surface]
         }
     |   CompositeSolid [Solid]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- ........................:::::::: _Surface ::::::::....................... --
 
@@ -116,32 +118,32 @@ data Surface =
         ,   baseSurface  :: Surface
         }
     | SuLink XLink
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 data SurfacePatch = T Triangle | R Rectangle
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 newtype TriangulatedSurface = Patches [Triangle]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 newtype Triangle = Triangle Ring
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 newtype Rectangle = Rectangle Ring
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 data Ring = LinearRing
     {   rFeature :: Feature
     ,   rPoints  :: [Point]
     }
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- .........................:::::::: _Curve ::::::::........................ --
 
 data Curve =
         LineString [Point]
     |   CompositeCurve [Curve]
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- ..........................:::::::: Point ::::::::........................ --
 
@@ -154,4 +156,4 @@ data Point =
         {   pList        :: String
         ,   plDimensions :: Maybe Int
         }
-    deriving (Read, Show, Eq, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Identifiable)

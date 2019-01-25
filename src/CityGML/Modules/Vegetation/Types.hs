@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 
 -- ------------------------------------------------------------
 
@@ -21,13 +22,14 @@ module CityGML.Modules.Vegetation.Types where
 import           CityGML.GML.Types
 
 import           GHC.Generics
+import           Data.Data
 import           Identifiable
 
 data VegetationObject = PlantCover
     {   vegFeature   :: Feature
     ,   vegLod1Model :: Maybe VegLod1Model
-    }   deriving (Read, Show, Eq, Generic, Identifiable)
+    }   deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 
 data VegLod1Model = VegLod1MultiSurf MultiSurface
-                 deriving (Read, Show, Eq, Generic, Identifiable)
+                 deriving (Read, Show, Eq, Data, Generic, Identifiable)

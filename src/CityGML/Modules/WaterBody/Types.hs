@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 
 -- ------------------------------------------------------------
 
@@ -21,14 +22,15 @@ module CityGML.Modules.WaterBody.Types where
 import           CityGML.GML.Types
 
 import           GHC.Generics
+import           Data.Data
 import           Identifiable
 
 
 data WaterObject = WaterBody
     {   wtrFeature   :: Feature
     ,   wtrLod1Model :: Maybe WtrLod1Model
-    }   deriving (Read, Show, Eq, Generic, Identifiable)
+    }   deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 
 data WtrLod1Model = WtrLod1MultiSurf MultiSurface
-                 deriving (Read, Show, Eq, Generic, Identifiable)
+                 deriving (Read, Show, Eq, Data, Generic, Identifiable)

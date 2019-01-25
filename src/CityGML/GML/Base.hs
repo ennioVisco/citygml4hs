@@ -1,5 +1,6 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveAnyClass     #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric      #-}
 
 -- ------------------------------------------------------------
 
@@ -18,6 +19,7 @@
 
 module CityGML.GML.Base where
 
+import           Data.Data
 import           Data.Maybe
 import           GHC.Generics
 import           Identifiable
@@ -30,7 +32,7 @@ data GML = GML
     ,   name        :: [CodeType]    -- ^ List of domain-specific names.
     ,   description :: Maybe String  -- ^ Optional description of the element.
     -- metaDataProperty
-    } deriving (Read, Show, Eq, Generic)
+    } deriving (Read, Show, Eq, Data, Generic)
 
 {- | As stated in the GML specification:
     This is a generalized type to be used for a term, keyword or name. It adds a
@@ -45,7 +47,7 @@ data GML = GML
 data CodeType = CodeType
     {   value     :: String         -- ^ The actual name of the element.
     ,   codeSpace :: Maybe String   -- ^ The semantical space to which the name refers.
-    } deriving (Read, Show, Eq, Generic, Identifiable)
+    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 
 instance XmlPickler GML where
