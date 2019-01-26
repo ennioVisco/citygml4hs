@@ -90,3 +90,7 @@ instance Identifiable GML where
                             (codeSpace n) = value n
                         | otherwise       = fromJust (codeSpace n) ++ value n
     uid (GML _ _ (Just d))                = d
+
+extendID :: CodeType -> String
+extendID (CodeType v s) | isNothing s = "::" ++ v
+                        | otherwise   = "::" ++ fromJust s ++ v
