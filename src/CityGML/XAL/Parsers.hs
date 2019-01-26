@@ -9,33 +9,33 @@ instance XmlPickler XalAddressDetails where
 
 xpXalAddress :: PU XalAddressDetails
 xpXalAddress
-  = xpElem "xal:AddressDetails" $
-    xpElem "xal:Country" $
+  = xpElem "xAL:AddressDetails" $
+    xpElem "xAL:Country" $
     xpWrap  ( uncurry XalAddressDetails
             , \ d -> (xCountryName d, xLocality d)
             ) $
-    xpPair  (xpElem "xal:CountryName"  xpText)
+    xpPair  (xpElem "xAL:CountryName"  xpText)
             xpLocality
 
 xpLocality :: PU XalLocality
 xpLocality
-  = xpElem "xal:Locality" $
+  = xpElem "xAL:Locality" $
     xpWrap      ( uncurry3 XalLocality
                 , \ l -> (xLocalityType l, xLocalityName l, xThoroughfare l)
                 ) $
     xpTriple    (xpAttr "Type"              xpText)
-                (xpElem "xal:LocalityName"  xpText)
+                (xpElem "xAL:LocalityName"  xpText)
                 xpThoroughfare
 
 
 xpThoroughfare :: PU XalThoroughfare
 xpThoroughfare
-  = xpElem "xal:Thoroughfare"  $
+  = xpElem "xAL:Thoroughfare"  $
     xpWrap      ( uncurry3 XalThoroughfare
                 , \ l ->    ( xThoroughfareType   l
                             , xThoroughfareNumber l
                             , xThoroughfareName   l )
                 ) $
     xpTriple    (xpAttr "Type"                   xpText)
-                (xpElem "xal:ThoroughfareNumber" xpText)
-                (xpElem "xal:ThoroughfareName"   xpText)
+                (xpElem "xAL:ThoroughfareNumber" xpText)
+                (xpElem "xAL:ThoroughfareName"   xpText)
