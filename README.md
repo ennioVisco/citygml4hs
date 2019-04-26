@@ -1,7 +1,7 @@
 # citygml4hs ![Status Badge - Travis CI](https://travis-ci.com/ennioVisco/citygml4hs.svg?branch=master)
 The Open Source Haskell API for CityGML. Autonomously developed based on CityGML specification.
 
-___Note:___ only supports a subset of the features, mainly tested on Delft, Reimscheid and New York models from [SEAMS19](https://github.com/ennioVisco/SEAMS19).
+___Note:___ only supports a subset of the features, mainly tested on Delft, Reimscheid and New York models from [MODELS19](https://github.com/ennioVisco/MODELS19).
 
 :warning: ___Warning__: currently only supports the fixed set of namespaces recommended on official CityGML 2.0 specification._
 
