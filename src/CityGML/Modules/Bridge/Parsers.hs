@@ -28,7 +28,7 @@ instance XmlPickler BrgLod1Model where
         ps = [  xpWrap  ( BrgLod1MultiSurf
                         , \ (BrgLod1MultiSurf s) -> s
                         ) $
-                xpElem "brg:lod1MultiSurface" xpMultiSurface
+                xpElem "brid:lod1MultiSurface" xpMultiSurface
              ]
 
 instance XmlPickler AbstractBridge where
@@ -36,7 +36,7 @@ instance XmlPickler AbstractBridge where
 
 xpBridge :: PU AbstractBridge
 xpBridge =
-    xpElem "brg:Bridge"    $
+    xpElem "brid:Bridge"    $
     xpWrap  (\(f,l1) -> Bridge f l1
             , \ b ->    ( brgFeature b
                         , brgLod1Model b
