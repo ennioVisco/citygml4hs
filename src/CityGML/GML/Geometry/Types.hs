@@ -98,8 +98,9 @@ data GeometricPrimitive =
 -- .........................:::::::: _Solid ::::::::........................ --
 data Solid =
         Solid
-        {   sdExterior ::  Surface
-        ,   sdInterior :: [Surface]
+        {   sdAbstractGeometry ::  AbstractGeometry
+        ,   sdExterior         ::  Surface
+        ,   sdInterior         :: [Surface]
         }
     |   CompositeSolid [Solid]
     deriving (Read, Show, Eq, Data, Generic, Identifiable)

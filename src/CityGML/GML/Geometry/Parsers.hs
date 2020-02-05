@@ -231,14 +231,16 @@ xpSolid :: PU Solid
 xpSolid
   = xpAlt tag ps
         where
-        tag (Solid _ _)        = 0
+        tag (Solid _ _ _)      = 0
         tag (CompositeSolid _) = 1
-        ps  = [ xpElem "gml:Solid" $
-                xpWrap  ( uncurry Solid
-                        , \ s -> (sdExterior s, sdInterior s)
-                        ) $
-                xpPair  (xpElem "gml:exterior" xpSurface)
-                        (xpList $ xpElem "gml:interior" xpSurface)
+        ps  = [ xpElem    "gml:Solid" $
+                xpWrap    ( \(g, e, i) -> Solid g e i
+                          , \ s -> (sdAbstractGeometry s, sdExterior s, sdInterior s)
+                          ) $
+                xpTriple
+                          xpAbstractGeometry
+                          (xpElem "gml:exterior" xpSurface)
+                          (xpList $ xpElem "gml:interior" xpSurface)
 
               , xpElem "gml:CompositeSolid" $
                 xpWrap  ( CompositeSolid
