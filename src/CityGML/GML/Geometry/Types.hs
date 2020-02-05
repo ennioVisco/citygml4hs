@@ -1,6 +1,6 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveAnyClass     #-}
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric      #-}
 
 -- ------------------------------------------------------------
 
@@ -32,14 +32,18 @@
 
 module CityGML.GML.Geometry.Types where
 
-import           GHC.Generics
 import           Data.Data
+import           GHC.Generics
 import           Identifiable
 
-import           CityGML.GML.Feature.Types
+import           CityGML.GML.Base
 import           CityGML.XLink.Types
 
 -- ........................:::::::: _Geometry ::::::::...................... --
+data AbstractGeometry = AbstractGeometry
+    {   gGml         :: GML
+    ,   srsReference :: Maybe SRSReferenceGroup
+    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 data Geometry =
         GC GeometricComplex
@@ -71,8 +75,8 @@ newtype MultiSolid = MultiSolid [Solid]
     deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 data MultiSurface = MultiSurface
-    {   msuFeature  :: Feature
-    ,   msuSurfaces :: [Surface]
+    {   msuAbstractGeometry :: AbstractGeometry
+    ,   msuSurfaces         :: [Surface]
     }
     deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
@@ -104,13 +108,13 @@ data Solid =
 
 data Surface =
         Polygon
-        {   scFeature  ::  Feature
-        ,   scExterior ::  Ring
-        ,   scInterior :: [Ring]
+        {   scAbstractGeometry ::  AbstractGeometry
+        ,   scExterior         ::  Ring
+        ,   scInterior         :: [Ring]
         }
     |   CompositeSurface
-        {   csFeature :: Feature
-        ,   csMembers :: [Surface]
+        {   csAbstractGeometry :: AbstractGeometry
+        ,   csMembers          :: [Surface]
         }
     |   Surface [SurfacePatch]
     |   OrientableSurface
@@ -133,8 +137,8 @@ newtype Rectangle = Rectangle Ring
     deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 data Ring = LinearRing
-    {   rFeature :: Feature
-    ,   rPoints  :: [Point]
+    {   rAbstractGeometry :: AbstractGeometry
+    ,   rPoints           :: [Point]
     }
     deriving (Read, Show, Eq, Data, Generic, Identifiable)
 

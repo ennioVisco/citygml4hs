@@ -15,13 +15,15 @@
 
 module CityGML.GML.Geometry.Parsers where
 
-import           CityGML.GML.Feature.Parsers
-import           CityGML.GML.Feature.Types
+import           CityGML.GML.Base
 import           CityGML.GML.Geometry.Types
 import           CityGML.XLink.Parsers
 import           Text.XML.HXT.Core
 
 -- ........................:::::::: _Geometry ::::::::...................... --
+instance XmlPickler AbstractGeometry where
+    xpickle = xpAbstractGeometry
+
 instance XmlPickler Geometry where
     xpickle = xpGeometry
 
@@ -80,6 +82,14 @@ instance XmlPickler Point where
     xpickle = xpPoint
 
 -- ........................:::::::: _Geometry ::::::::...................... --
+xpAbstractGeometry :: PU AbstractGeometry
+xpAbstractGeometry
+  = xpWrap  ( uncurry AbstractGeometry
+            , \ f -> (gGml f, srsReference f)
+            ) $
+
+    xpPair  xpGML
+            (xpOption xpSRSReferenceGroup)
 
 xpGeometry :: PU Geometry
 xpGeometry =
@@ -166,9 +176,9 @@ xpMultiSurface :: PU MultiSurface
 xpMultiSurface
   = xpElem "gml:MultiSurface" $
     xpWrap  ( uncurry MultiSurface
-            , \ ms -> (msuFeature ms, msuSurfaces ms)
+            , \ ms -> (msuAbstractGeometry ms, msuSurfaces ms)
             ) $
-    xpPair  xpFeature
+    xpPair  xpAbstractGeometry
             (xpList $ xpElem "gml:surfaceMember" xpSurface)
 
 xpMultiCurve :: PU MultiCurve
@@ -276,8 +286,8 @@ xpPolygon :: PU Surface
 xpPolygon
   = xpElem "gml:Polygon" $
     xpWrap  ( uncurry3 Polygon
-            , \ p -> (scFeature p, scExterior p, scInterior p)) $
-    xpTriple    xpFeature
+            , \ p -> (scAbstractGeometry p, scExterior p, scInterior p)) $
+    xpTriple    xpAbstractGeometry
                 (xpElem "gml:exterior" xpRing)
                 (xpList $ xpElem "gml:interior" xpRing)
 
@@ -285,9 +295,9 @@ xpCompositeSurface :: PU Surface
 xpCompositeSurface
   = xpElem "gml:CompositeSurface" $
     xpWrap  ( uncurry CompositeSurface
-            , \ cs -> (csFeature cs, csMembers cs)
+            , \ cs -> (csAbstractGeometry cs, csMembers cs)
             ) $
-    xpPair  xpFeature
+    xpPair  xpAbstractGeometry
             (xpList $ xpElem "gml:surfaceMember" xpSurface)
 
 xpSingleSurface :: PU Surface
@@ -337,9 +347,9 @@ xpRing :: PU Ring
 xpRing
   = xpElem "gml:LinearRing"    $
     xpWrap  ( uncurry LinearRing
-            , \ r -> (rFeature r, rPoints r)
+            , \ r -> (rAbstractGeometry r, rPoints r)
             ) $
-    xpPair  xpFeature
+    xpPair  xpAbstractGeometry
             (xpList xpPoint)
 
 -- .........................:::::::: _Curve ::::::::........................ --

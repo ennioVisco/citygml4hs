@@ -1,6 +1,6 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveAnyClass     #-}
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric      #-}
 
 -- ------------------------------------------------------------
 
@@ -21,8 +21,8 @@
 module CityGML.GML.Feature.Types where
 
 import           CityGML.GML.Base
-import           GHC.Generics
 import           Data.Data
+import           GHC.Generics
 import           Identifiable
 
 {- | 'Feature' is the implementation of _Feature as from section 7.4.1.2 of GML
@@ -34,7 +34,7 @@ import           Identifiable
     Collection
 -}
 data Feature = Feature
-    {   gml       :: GML
+    {   fGml      :: GML
     ,   boundedBy :: Maybe BoundedBy
         -- location (?)
     }
@@ -42,10 +42,9 @@ data Feature = Feature
 
 -- | 'BoundedBy' incomplete specification based on section 7.4.1.3 of GML spec.
 data BoundedBy = BoundedBy
-    {   srsDimension :: Int
-    ,   srsName      :: String
-    ,   lCorner      :: String
-    ,   uCorner      :: String
+    {   bSrsReference :: SRSReferenceGroup
+    ,   lCorner       :: String
+    ,   uCorner       :: String
     }   deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 -- | 'FeatureCollection' is the implementation of _FeatureCollection as from
