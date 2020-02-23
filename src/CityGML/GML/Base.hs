@@ -19,8 +19,8 @@
 
 module CityGML.GML.Base where
 
-import           Data.Data
 import           Data.Binary
+import           Data.Data
 import           Data.Maybe
 import           GHC.Generics
 import           Identifiable
@@ -61,7 +61,7 @@ data CodeType = CodeType
 data SRSReferenceGroup = SRSReferenceGroup
     {   srsName      :: String
     ,   srsDimension :: Maybe Int
-    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    } deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 instance XmlPickler GML where
     xpickle = xpGML

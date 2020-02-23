@@ -44,7 +44,7 @@ import           CityGML.XLink.Types
 data AbstractGeometry = AbstractGeometry
     {   gGml         :: GML
     ,   srsReference :: Maybe SRSReferenceGroup
-    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    } deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 data Geometry =
         GC GeometricComplex
