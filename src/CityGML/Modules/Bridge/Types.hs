@@ -23,13 +23,14 @@ import           CityGML.GML.Types
 
 import           GHC.Generics
 import           Data.Data
+import           Data.Binary
 import           Identifiable
 
 data AbstractBridge = Bridge
     {   brgFeature   :: Feature
     ,   brgLod1Model :: Maybe BrgLod1Model
-    }   deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    }   deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 
 data BrgLod1Model = BrgLod1MultiSurf MultiSurface
-                 deriving (Read, Show, Eq, Data, Generic, Identifiable)
+                 deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)

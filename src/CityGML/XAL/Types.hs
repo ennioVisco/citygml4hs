@@ -21,6 +21,7 @@ module CityGML.XAL.Types where
 
 import           GHC.Generics
 import           Data.Data
+import           Data.Binary
 import           Identifiable
 
 
@@ -41,16 +42,16 @@ import           Identifiable
 data XalAddressDetails = XalAddressDetails
     {   xCountryName :: String
     ,   xLocality    :: XalLocality
-    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    } deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 data XalLocality = XalLocality
     {   xLocalityType :: String
     ,   xLocalityName :: String
     ,   xThoroughfare :: XalThoroughfare
-    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    } deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 data XalThoroughfare = XalThoroughfare
     {   xThoroughfareType   :: String
     ,   xThoroughfareNumber :: String
     ,   xThoroughfareName   :: String
-    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    } deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)

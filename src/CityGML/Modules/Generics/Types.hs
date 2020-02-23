@@ -23,16 +23,17 @@ import           CityGML.GML.Types
 
 import           GHC.Generics
 import           Data.Data
+import           Data.Binary
 import           Identifiable
 
 data GenericCityObject = GenericCityObject
     {   genFeature   :: Feature
     ,   genLod1Model :: GenLod1Model
-    }   deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    }   deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 
 newtype GenLod1Model = GenLod1Geometry MultiSurface
-                 deriving (Read, Show, Eq, Data, Generic, Identifiable)
+                 deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 data GenericAttribute =
         StringAttribute
@@ -47,4 +48,4 @@ data GenericAttribute =
         {   gdaName  :: String
         ,   gdaValue :: String
         }
-    deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)

@@ -21,8 +21,9 @@ module CityGML.XLink.Types where
 
 import           GHC.Generics
 import           Data.Data
+import           Data.Binary
 import           Identifiable
 
 
 newtype XLink = XLink String
-    deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)

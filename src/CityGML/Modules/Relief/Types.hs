@@ -23,6 +23,7 @@ import           CityGML.GML.Types
 
 import           GHC.Generics
 import           Data.Data
+import           Data.Binary
 import           Identifiable
 
 data ReliefFeature = ReliefFeature
@@ -30,13 +31,13 @@ data ReliefFeature = ReliefFeature
         ,   demFLod       :: Int
         ,   demComponents :: [Relief]
         }
-    deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 data ReliefComponent = ReliefComponent
         {   demCFeature :: Feature
         ,   demCLod     :: Int
         }
-    deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 data Relief =
         TINRelief
@@ -52,4 +53,4 @@ data Relief =
         ,   demBreaklines      :: Maybe MultiCurve
         ,   ridgeOrValleyLines :: Maybe MultiCurve
         }
-    deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)

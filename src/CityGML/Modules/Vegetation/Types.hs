@@ -23,13 +23,14 @@ import           CityGML.GML.Types
 
 import           GHC.Generics
 import           Data.Data
+import           Data.Binary
 import           Identifiable
 
 data VegetationObject = PlantCover
     {   vegFeature   :: Feature
     ,   vegLod1Model :: Maybe VegLod1Model
-    }   deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    }   deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 
 data VegLod1Model = VegLod1MultiSurf MultiSurface
-                 deriving (Read, Show, Eq, Data, Generic, Identifiable)
+                 deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)

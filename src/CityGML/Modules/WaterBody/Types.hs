@@ -23,14 +23,15 @@ import           CityGML.GML.Types
 
 import           GHC.Generics
 import           Data.Data
+import           Data.Binary
 import           Identifiable
 
 
 data WaterObject = WaterBody
     {   wtrFeature   :: Feature
     ,   wtrLod1Model :: Maybe WtrLod1Model
-    }   deriving (Read, Show, Eq, Data, Generic, Identifiable)
+    }   deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 
 data WtrLod1Model = WtrLod1MultiSurf MultiSurface
-                 deriving (Read, Show, Eq, Data, Generic, Identifiable)
+                 deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
