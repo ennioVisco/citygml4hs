@@ -35,7 +35,7 @@ import           Identifiable
     Collection
 -}
 data Feature = Feature
-    {   gml       :: GML
+    {   fGml      :: GML
     ,   boundedBy :: Maybe BoundedBy
         -- location (?)
     }
@@ -43,10 +43,9 @@ data Feature = Feature
 
 -- | 'BoundedBy' incomplete specification based on section 7.4.1.3 of GML spec.
 data BoundedBy = BoundedBy
-    {   srsDimension :: Int
-    ,   srsName      :: String
-    ,   lCorner      :: String
-    ,   uCorner      :: String
+    {   bSrsReference :: SRSReferenceGroup
+    ,   lCorner       :: String
+    ,   uCorner       :: String
     }   deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
 -- | 'FeatureCollection' is the implementation of _FeatureCollection as from

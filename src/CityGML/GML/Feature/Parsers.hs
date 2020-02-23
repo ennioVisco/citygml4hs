@@ -36,7 +36,7 @@ instance XmlPickler FeatureCollection where
 xpFeature :: PU Feature
 xpFeature
   = xpWrap  ( uncurry Feature
-            , \ f -> (gml f, boundedBy f)
+            , \ f -> (fGml f, boundedBy f)
             ) $
 
     xpPair  xpGML
@@ -48,12 +48,11 @@ xpBoundedBy :: PU BoundedBy
 xpBoundedBy
   = xpElem  "gml:boundedBy" $
     xpElem  "gml:Envelope"  $
-    xpWrap      (\(n,d,l,u) -> BoundedBy d n l u
-                , \ b -> ( srsName b, srsDimension b, lCorner b, uCorner b )
+    xpWrap      (\(s,l,u) -> BoundedBy s l u
+                , \ b -> ( bSrsReference b, lCorner b, uCorner b )
                 ) $
 
-    xp4Tuple    (xpAttr "srsName"           xpText)
-                (xpAttr "srsDimension"      xpPrim)
+    xpTriple    xpSRSReferenceGroup
                 (xpElem "gml:lowerCorner"   xpText)
                 (xpElem "gml:upperCorner"   xpText)
 

@@ -50,12 +50,27 @@ data CodeType = CodeType
     ,   codeSpace :: Maybe String   -- ^ The semantical space to which the name refers.
     } deriving (Read, Show, Eq, Data, Generic, Binary, Identifiable)
 
+{- | As stated in the GML 3.2.1+ specification (§ 10.1.3.2):
+    The attribute group gml:SRSReferenceGroup is an optional reference to the
+    CRS used by this geometry, with optional additional information to simplify
+    the processing of the coordinates when a more complete definition of the
+    CRS is not needed.
+
+    Note: attributeGroup "gml:SRSInformationGroup" not implemented yet!
+-}
+data SRSReferenceGroup = SRSReferenceGroup
+    {   srsName      :: String
+    ,   srsDimension :: Maybe Int
+    } deriving (Read, Show, Eq, Data, Generic, Identifiable)
 
 instance XmlPickler GML where
     xpickle = xpGML
 
 instance XmlPickler CodeType where
     xpickle = xpCodeType
+
+instance XmlPickler SRSReferenceGroup where
+    xpickle = xpSRSReferenceGroup
 
 
 -- | Prickler for the base _GML abstract element.
@@ -79,6 +94,18 @@ xpCodeType =    xpWrap  ( uncurry CodeType
 
                 xpPair  xpText
                         (xpOption $ xpAttr "codeSpace" xpText)
+
+
+-- | Prickler for the SRSReferenceGroup property group, i.e. srsName,
+--  srsDimension etc.
+-- See § 10.1.3.2 of GML Specification.
+xpSRSReferenceGroup :: PU SRSReferenceGroup
+xpSRSReferenceGroup =   xpWrap  ( uncurry SRSReferenceGroup
+                                , \ t -> (srsName t, srsDimension t)
+                                ) $
+
+                        xpPair  (xpAttr            "srsName"      xpText)
+                                (xpOption $ xpAttr "srsDimension" xpPrim)
 
 -- | The Identifiable class is the foundational helper to extract a UniqueID
 -- from a GML instance.
