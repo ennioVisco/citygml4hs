@@ -1,0 +1,87 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 408903ff3122786e6ed1497b0bb3f63226a27c18a2c2c76665bb6f013c7cdf55
+
+name:           citygml4hs
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/ennioVisco/citygml4hs#readme>
+homepage:       https://github.com/ennioVisco/citygml4hs#readme
+bug-reports:    https://github.com/ennioVisco/citygml4hs/issues
+author:         Ennio Visconti
+maintainer:     ennio.visconti@mail.polimi.it
+copyright:      2018 Ennio Visconti
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/ennioVisco/citygml4hs
+
+library
+  exposed-modules:
+      CityGML
+      CityGML.ADEs.TopoADE
+      CityGML.Core.Parsers
+      CityGML.Core.Strategy
+      CityGML.Core.Types
+      CityGML.GML.Base
+      CityGML.GML.Feature.Parsers
+      CityGML.GML.Feature.Types
+      CityGML.GML.Geometry.Parsers
+      CityGML.GML.Geometry.Types
+      CityGML.GML.Parsers
+      CityGML.GML.Types
+      CityGML.Modules.Bridge.Parsers
+      CityGML.Modules.Bridge.Types
+      CityGML.Modules.Building.Parsers
+      CityGML.Modules.Building.Types
+      CityGML.Modules.Generics.Parsers
+      CityGML.Modules.Generics.Types
+      CityGML.Modules.Relief.Parsers
+      CityGML.Modules.Relief.Types
+      CityGML.Modules.Transportation.Parsers
+      CityGML.Modules.Transportation.Types
+      CityGML.Modules.Vegetation.Parsers
+      CityGML.Modules.Vegetation.Types
+      CityGML.Modules.WaterBody.Parsers
+      CityGML.Modules.WaterBody.Types
+      CityGML.Namespaces
+      CityGML.Parsers
+      CityGML.Types
+      CityGML.XAL.Parsers
+      CityGML.XAL.Types
+      CityGML.XLink.Parsers
+      CityGML.XLink.Types
+      Identifiable
+  other-modules:
+      Paths_citygml4hs
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , binary
+    , hxt
+  default-language: Haskell2010
+
+test-suite citygml4hs-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_citygml4hs
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , binary
+    , citygml4hs
+    , hxt
+  default-language: Haskell2010

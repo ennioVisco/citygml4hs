@@ -22,6 +22,5 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 .stack-work/
-citygml4hs.cabal
 *~
 .vscode/
